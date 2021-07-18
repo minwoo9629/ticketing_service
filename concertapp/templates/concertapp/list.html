@@ -10,7 +10,7 @@
     {% for now in now_playing %}
     <div class="contentCard">
       <ul>
-        <li class="contentImg"><img src="{{ now.poster.url }}"></li>
+        <li class="contentImg"><a href="{% url 'concertapp:detail' now.id %}"><img src="{{ now.poster.url }}"></a></li>
         <li class="contentTitle">{{now.title}}</li>
       </ul>
     </div>
@@ -103,6 +103,16 @@
         font-size: 14px;
       }
     }
+
+    /* .overlay {
+      height: 273px;
+      width: 200px;
+      background-color: black;
+      opacity: 0.8;
+      top: 8px;
+      border-radius: 20px;
+      position: absolute;
+    } */
 
     @media screen and (max-width:1325px) {
 
