@@ -1,0 +1,99 @@
+{% extends 'base.html'%}
+{% block content %}
+<style>
+    .createWrap {
+        padding: 80px;
+    }
+
+    .createWrap form {
+        margin: 0px auto;
+        width: 500px;
+        padding: 25px;
+    }
+
+    form ul li {
+        margin-bottom: 20px;
+    }
+
+    form ul li input {
+        outline: none;
+        text-align: center;
+        border-radius: 16px;
+        border: none;
+        padding: 5px;
+        font-size: 18px;
+        width: 100%;
+        height: 30px;
+        box-shadow: 0px 0px 2px;
+    }
+
+    .error_message {
+        height: 16px;
+        text-align: center;
+        color: red;
+        font-weight: bold;
+
+    }
+
+    .btnWrap {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .btnWrap input,
+    .btnWrap a {
+        margin: 0px 10px;
+    }
+</style>
+<div class="createWrap">
+    <form action="{% url 'accountapp:create' %}" method="POST">
+        {% csrf_token %}
+        <ul>
+            <li>
+                <label for="username">사용자 이름</label>
+            </li>
+            <li>
+                <input type="text" name="username" id="username" value="{{ form.username.value|default_if_none:''}}"
+                    required>
+            </li>
+            <li class="error_message">
+                {% if form.errors.username %}
+                {{ form.errors.username}}
+                {% endif %}
+            </li>
+            <li>
+                <label for="password1">비밀번호</label>
+            </li>
+            <li>
+                <input type="password" name="password1" id="password1"
+                    value="{{ form.password1.value|default_if_none:''}}" required>
+            </li>
+            <li>
+                <label for="password2">비밀번호 확인</label>
+            </li>
+            <li>
+                <input type="password" name="password2" id="password2"
+                    value="{{ form.password2.value|default_if_none:''}}" required>
+            </li>
+
+            <li class="error_message">
+                {% if form.errors.password1 %}
+                {{ form.errors.password1 }}
+                {% endif %}
+                {% if form.errors.password2 %}
+                {{ form.errors.password2 }}
+                {% endif %}
+            </li>
+            <li>
+                <label for="email">이메일</label>
+            </li>
+            <li>
+                <input type="text" name="email" id="email" value="{{ form.email.value|default_if_none:''}}" required>
+            </li>
+            <div class="btnWrap">
+                <input class="form-input rounded-pill" type="submit" value="계정생성">
+                <a href="{% url 'concertapp:list'%}">취소</a>
+            </div>
+    </form>
+</div>
+{% endblock %}

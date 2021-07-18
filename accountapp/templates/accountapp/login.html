@@ -1,0 +1,91 @@
+{% extends 'base.html'%}
+{% block content %}
+<style>
+    .login-form {
+        padding: 80px;
+    }
+
+    .login-form form {
+        margin: 0px auto;
+        width: 500px;
+        padding: 25px;
+    }
+
+    ul {
+        text-align: center;
+    }
+
+    form ul li {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    form ul li input {
+        width: 70%;
+        height: 40px;
+        outline: none;
+        border: none;
+        font-size: 18px;
+        border-bottom: 1px solid;
+        background-color: #fafafa;
+    }
+
+    form ul li label {
+        top: 15px;
+        left: 73px;
+        position: absolute;
+        transition: all .3s;
+    }
+
+    input[id='username']:focus+label,
+    input[id='username']:valid+label,
+    input[type='password']:focus+label,
+    input[type='password']:valid+label {
+        top: -10px;
+        font-size: 12px;
+    }
+
+    .error_message {
+        height: 16px;
+        text-align: center;
+        color: red;
+        font-weight: bold;
+
+    }
+
+    .btnWrap {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .btnWrap input,
+    .btnWrap a {
+        margin: 0px 10px;
+    }
+</style>
+<div class="login-form">
+    <form action="{% url 'accountapp:login' %}" method="POST">
+        {% csrf_token %}
+        <ul>
+            <li>
+                <input type="text" name="username" id="username" value="{{ form.username.value|default_if_none:''}}"
+                    required>
+                <label for="username">사용자 이름</label>
+            </li>
+            <li>
+                <input type="password" name="password" id="password" value="{{ form.password.value|default_if_none:''}}"
+                    required>
+                <label for="password">비밀번호</label>
+            </li>
+
+            <div class="btnWrap">
+                <input type="submit" value="로그인" class="btn btn-outline-primary rounded-pill">
+                <a class="btn btn-outline-danger rounded-pill" href="{% url 'concertapp:list'%}">취소</a>
+            </div>
+            {% for error in forms.errors %}
+            {{error}}
+            {%endfor%}
+        </ul>
+    </form>
+</div>
+{% endblock %}

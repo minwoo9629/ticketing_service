@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="nowWrap">
+  <div class="nowTitle">
+    Playing
+  </div>
+
+  <div class="nowContent">
+    {% for now in now_playing %}
+    <div class="contentCard">
+      <ul>
+        <li class="contentImg"><img src="{{ now.poster.url }}"></li>
+        <li class="contentTitle">{{now.title}}</li>
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<div>
+  <div class="futureWrap">
+    <div class="futureTitle">
+      Comming Soon
+    </div>
+
+    <div class="futureContent">
+      {% for come in comming_soon %}
+      <div class="contentCard">
+        <ul>
+          <li class="contentImg"><img src="{{ come.poster.url }}"></li>
+          <li class="contentTitle">{{come.title}}</li>
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div>
+  </div>
+  <style>
+    .nowWrap,
+    .futureWrap {
+      padding: 40px 15px;
+    }
+
+    .nowTitle,
+    .futureTitle {
+      height: 45px;
+      text-align: center;
+      font-size: 40px;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .nowContent,
+    .futureContent {
+      padding: 55px 10px;
+      display: flex;
+      position: relative;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      transition: all .3s ease;
+    }
+
+    .contentCard {
+      position: relative;
+      padding: 10px 20px;
+      width: 200px;
+      height: 310px;
+      text-align: center;
+      transition: all .3s ease;
+
+    }
+
+    .contentCard:hover {
+      transform: translateY(-30px);
+    }
+
+
+    .nowContent .contentCard::after {
+      content: "HOT";
+      color: red;
+    }
+
+    .contentImg {
+      margin-bottom: 10px;
+    }
+
+    img {
+      box-shadow: 0px 0px 13px grey;
+      width: 200px;
+      height: 270px;
+      border-radius: 1rem;
+    }
+
+    @media screen and (max-width:1500px) {
+
+      .contentCard,
+      img {
+        width: 170px;
+        height: 230px;
+      }
+
+      .contentTitle {
+        font-size: 14px;
+      }
+    }
+
+    @media screen and (max-width:1325px) {
+
+      .contentCard,
+      img {
+        width: 150px;
+        height: 210px;
+      }
+
+      .contentTitle {
+        font-size: 13px;
+        font-family: 'Nanum Gothic', sans-serif;
+      }
+    }
+
+    @media screen and (max-width:1210px) {
+
+      .contentCard,
+      img {
+        width: 140px;
+        height: 200px;
+      }
+
+      .contentTitle {
+        font-size: 12px;
+      }
+
+      .contentCard {
+        margin-bottom: 80px;
+      }
+
+      .nowContent,
+      .futureContent {
+        justify-content: center;
+        padding-bottom: 0;
+      }
+    }
+
+    @media screen and (max-width:900px) {
+
+      .nowContent,
+      .futureContent {
+        justify-content: center;
+        padding-top: 30px;
+        padding-bottom: 0;
+      }
+
+      .futureWrap {
+        padding-top: 0px;
+      }
+    }
+  </style>
+  {% endblock %}
