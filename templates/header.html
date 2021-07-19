@@ -7,7 +7,7 @@
         <li><a href="{% url 'concertapp:conert'%}">콘서트</a></li>
         <li><a href="#">뮤지컬</a></li>
         <li><a href="#">클래식</a></li>
-        <li><a href="#">재휴문의</a></li>
+        <li><a href="#">제휴문의</a></li>
     </ul>
 
     <div class="navbar_search">
@@ -16,23 +16,22 @@
             <button type="submit"><i class="fas fa-search"></i></button>
         </form>
     </div>
-    <button class="userDropDownBtn"><i class="far fa-user"></i></button>
-    <a href="#" class="toggleBtn"><i class="fas fa-bars"></i></a>
-    <ul class="navbar_userBtn">
-        {% if user.is_authenticated%}
-        <li><a href="">{{user.username}}</a></li>
-        <li><a href="{% url 'accountapp:logout' %}">로그아웃</a></li>
-        {% else %}
-        <li><a href="{% url 'accountapp:login'%}">로그인</a></li>
-        <li><a href="{% url 'accountapp:create'%}">회원가입</a></li>
-        {% endif %}
-    </ul>
 </nav>
+{% if user.is_authenticated%}
+<button class="userDropDownBtn"><i class="far fa-user"></i></button>
+{% else %}
+<a href="{% url 'accountapp:login'%}" class="loginBtn"><i class="far fa-user"></i></a>
+{% endif %}
+<a href="#" class="toggleBtn"><i class="fas fa-bars"></i></a>
+<ul class="userDropDownMenu">
+    <li><a href="">{{user.username}}</a></li>
+    <li><a href="{% url 'accountapp:logout' %}">로그아웃</a></li>
+</ul>
 <script>
     const menuBtn = document.querySelector('.toggleBtn');
     const menu = document.querySelector('.navbar_menu');
     const userDropDownBtn = document.querySelector('.userDropDownBtn');
-    const userBtn = document.querySelector('.navbar_userBtn')
+    const userDropDownMenu = document.querySelector('.userDropDownMenu')
     // toggle Event
     menuBtn.addEventListener('click', () => {
         menu.classList.toggle('active');
@@ -40,11 +39,11 @@
 
     userDropDownBtn.addEventListener('click', (event) => {
         event.stopPropagation();
-        userBtn.classList.toggle('active');
+        userDropDownMenu.classList.toggle('active');
     })
 
     document.addEventListener('click', () => {
-        userBtn.classList.remove('active');
+        userDropDownMenu.classList.remove('active');
     })
 </script>
 <style>
@@ -70,7 +69,7 @@
     .navbar_menu {
         display: flex;
         list-style: none;
-        margin-right: 50px;
+        margin-left: 95px;
     }
 
     .navbar_menu li {
@@ -79,39 +78,11 @@
         font-family: 'Nanum Gothic', sans-serif;
     }
 
-    .navbar_userBtn {
-        background-color: white;
-        top: 65px;
-        right: 10px;
-        visibility: hidden;
-        position: relative;
-        list-style: none;
-        box-shadow: 0px 0px 10px grey;
-        border-radius: 8px;
-    }
-
-    .navbar_userBtn li {
-        text-align: center;
-        padding: 8px 10px;
-        font-family: 'Nanum Gothic', sans-serif;
-    }
-
-    .navbar_userBtn li a:hover {
-        font-weight: bold;
-    }
-
-    .navbar_userBtn li a {
-        background-color: white;
-        padding: 0.4rem 0.8rem;
-        color: cornflowerblue;
-        font-size: 14px;
-    }
-
     .navbar_search {
         display: flex;
         justify-content: center;
         align-items: center;
-        position: absolute;
+        position: relative;
         right: 60px;
         border: none;
         color: cornflowerblue;
@@ -144,6 +115,54 @@
         position: absolute;
     }
 
+    .loginBtn,
+    .userDropDownBtn {
+        position: absolute;
+        background-color: #fafafa;
+        border: none;
+        font-size: 23px;
+        color: cornflowerblue;
+    }
+
+    .loginBtn {
+        top: 1rem;
+        right: 2rem;
+    }
+
+    .userDropDownBtn {
+        top: 15px;
+        right: 26px;
+        cursor: pointer;
+    }
+
+    .userDropDownMenu {
+        background-color: white;
+        top: 65px;
+        right: 10px;
+        visibility: hidden;
+        position: absolute;
+        list-style: none;
+        box-shadow: 0px 0px 10px grey;
+        border-radius: 8px;
+    }
+
+    .userDropDownMenu li {
+        text-align: center;
+        padding: 8px 10px;
+        font-family: 'Nanum Gothic', sans-serif;
+    }
+
+    .userDropDownMenu li a:hover {
+        font-weight: bold;
+    }
+
+    .userDropDownMenu li a {
+        background-color: white;
+        padding: 0.4rem 0.8rem;
+        color: cornflowerblue;
+        font-size: 14px;
+    }
+
     .toggleBtn {
         position: absolute;
         right: 1.5rem;
@@ -152,25 +171,28 @@
         display: none;
     }
 
-    .userDropDownBtn {
-        background-color: #fafafa;
-        border: none;
-        position: absolute;
-        right: 1rem;
-        font-size: 23px;
-        color: cornflowerblue;
-        cursor: pointer;
+    .userDropDownMenu.active {
+        visibility: visible;
     }
 
-    .navbar_userBtn.active {
-        visibility: visible;
+    @media screen and (max-width: 1200px) {
+        .navbar_menu {
+            margin-right: 30px;
+        }
+
+        .navbar_search {
+            width: 200px;
+        }
+
+        .navbar_search form input {
+            width: 150px;
+        }
     }
 
     @media screen and (max-width: 1060px) {
         .navbar_menu {
-            margin-right: 135px;
+            margin: 0;
         }
-
     }
 
     @media screen and (max-width: 930px) {
@@ -198,24 +220,33 @@
             justify-content: center;
         }
 
-        .toggleBtn {
-            display: block;
-        }
-
         .navbar_menu.active {
             display: flex;
         }
 
-        .userDropDownBtn {
+        .navbar_search {
             position: absolute;
-            right: 60px;
-            font-size: 23px;
-            color: cornflowerblue;
-            top: 21px;
+            right: 95px;
+            top: 15px;
         }
 
-        .navbar_search {
-            right: 110px
+        .loginBtn {
+            top: 18px;
+            right: 57px;
+        }
+
+        .userDropDownBtn {
+            position: absolute;
+            right: 51px;
+            top: 17px;
+            font-size: 23px;
+            color: cornflowerblue;
+        }
+
+        .toggleBtn {
+            display: block;
+            top: 17px;
+            right: 17px;
         }
     }
 </style>
