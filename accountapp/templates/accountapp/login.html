@@ -1,8 +1,10 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block content %}
 <style>
     .login-form {
         padding: 80px;
+        text-align: center;
     }
 
     .login-form form {
@@ -63,7 +65,12 @@
         margin: 0px 10px;
     }
 </style>
+{% load socialaccount %}
+{% providers_media_js %}
+
+<a></a>
 <div class="login-form">
+    <div>간편 로그인</div>
     <form action="{% url 'accountapp:login' %}" method="POST">
         {% csrf_token %}
         <ul>
@@ -87,5 +94,8 @@
             {%endfor%}
         </ul>
     </form>
+    <!-- <a href="{% provider_login_url 'kakao' method='oauth2' %}">카카오 로그인</a> -->
+    <a href="{% provider_login_url 'kakao' method='oauth2' %}"><img
+            src="{% static 'kakao/kakao_login_medium_narrow.png'%}" alt=""></a>
 </div>
 {% endblock %}

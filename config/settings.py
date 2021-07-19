@@ -134,13 +134,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accountapp.User'
 
-LOGIN_REDIRECT_URL = reverse_lazy('home');
+LOGIN_REDIRECT_URL = 'home';
 LOGOUT_REDIRECT_URL = reverse_lazy('home');
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 SITE_ID = 1
-ACCOUNT_LOGOUT_REDIRECT_URL = reverse_lazy('home');
+ACCOUNT_LOGOUT_REDIRECT_URL = 'home';
 ACCOUNT_LOGOUT_ON_GET = True

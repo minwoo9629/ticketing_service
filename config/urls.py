@@ -9,7 +9,7 @@ urlpatterns = [
     path('', performance_list_view, name='home'),
     path('performance/', include('concertapp.urls')),
     path('accounts/', include('accountapp.urls')),
-    path('social_accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
