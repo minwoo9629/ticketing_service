@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from concertapp.models import Performance
 from django.views.generic import DetailView
-
+from django.utils import timezone
 
 def performance_list_view(request):
-    now_playing = Performance.objects.all()[:6]
-    comming_soon = Performance.objects.all()[6:12]
+    current_date = timezone.now().strftime('%Y-%m-%d')
+    now_playing =  Performance.objects.filter(ticket_open_dt__lte=current_date).order_by('ticket_open_dt')[:5]
+    comming_soon = Performance.objects.filter(ticket_open_dt__gte=current_date).order_by('ticket_open_dt')[:5]
     context = {'now_playing':now_playing, 'comming_soon': comming_soon}
     return render(request, 'concertapp/list.html', context)
 

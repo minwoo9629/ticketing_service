@@ -1,0 +1,23 @@
+.sideBar {
+    width: 25vw;
+    height: 100vh;
+    background-color: bisque;
+}
+
+.sideBar section {
+    height: 75vh;
+}
+
+.buttonWrap {
+    height: 30vh;
+}
+
+.sidePoster {
+    width: 100%;
+    height: 80%;
+}
+
+.sidePoster img {
+    width: 100%;
+    height: 100%;
+}
