@@ -7,16 +7,29 @@
       <div class="nowTitle">
         PLAYING
       </div>
-      <div class="nowContent">
-        {% for now in now_playing %}
-        <div class="contentCard">
-          <ul>
-            <li class="contentImg"><a href="{% url 'concertapp:detail' now.id %}"><img src="{{ now.poster.url }}"></a>
-            </li>
-            <li class="contentTitle">{{now.title}}</li>
-          </ul>
+      <div class="nowContent slider">
+        <div class="slideBox">
+          {% for now in now_playing %}
+          <div class="contentCard slideItem">
+            <ul>
+              <li class="contentImg"><a href="{% url 'concertapp:detail' now.id %}"><img src="{{ now.poster.url }}"></a>
+              </li>
+              <li class="contentTitle">{{now.title}}</li>
+            </ul>
+          </div>
+          {% endfor %}
+
+          <!-- copy for slide effect -->
+          {% for now in now_playing %}
+          <div class="contentCard slideItem">
+            <ul>
+              <li class="contentImg"><a href="{% url 'concertapp:detail' now.id %}"><img src="{{ now.poster.url }}"></a>
+              </li>
+              <li class="contentTitle">{{now.title}}</li>
+            </ul>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
     </div>
     <div class="futureWrap">
@@ -48,29 +61,51 @@
     </div>
   </div>
 </div> -->
-<script>
-  const contentCardAll = document.querySelectorAll('.contentCard')
-  const contentCardView = (idx) => {
-    contentCardAll[idx].classList.add('active');
-  }
-  for (let i = 0; i < contentCardAll.length; i++) {
-    setTimeout(contentCardView(i), 3000)
-  }
-</script>
 <style>
   .main {
-    width: 100vw;
-    display: inline-flex;
+    display: flex;
   }
 
   .mainContent {
+    float: right;
     width: 75vw;
     height: 100vh;
   }
 
-  .nowWrap,
+  .slider {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slideBox {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    width: calc(250px * 10);
+    animation: slide 20s linear infinite;
+  }
+
+  .slideBox:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0)
+    }
+
+    100% {
+      transform: translate(calc(-250px * 5));
+    }
+
+  }
+
+  .nowWrap {
+    padding: 40px 15px 0px 15px;
+  }
+
   .futureWrap {
-    padding: 40px 15px;
+    padding: 0px 15px;
   }
 
   .nowTitle,
@@ -86,33 +121,20 @@
     padding: 25px 10px 0 10px;
     display: flex;
     position: relative;
-    flex-wrap: wrap;
-    justify-content: space-between;
     transition: all .3s ease;
   }
 
   .contentCard {
     position: relative;
     padding: 10px 20px;
-    width: 200px;
-    height: 310px;
+    width: 250px;
+    height: 255px;
     text-align: center;
     transition: all .3s ease;
-    visibility: hidden;
   }
 
-  .contentCard.active {
-    visibility: visible;
-  }
-
-  .contentCard:hover {
+  .nowContent .contentCard:hover {
     transform: translateY(-30px);
-  }
-
-
-  .nowContent .contentCard::after {
-    content: "HOT";
-    color: red;
   }
 
   .contentImg {
@@ -133,78 +155,13 @@
     border-radius: 1rem;
   }
 
-  @media screen and (max-width:1500px) {
-
-    .contentCard,
-    img {
-      width: 170px;
-      height: 230px;
-    }
-
-    .contentTitle {
-      font-size: 14px;
-    }
+  .futureContent {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
-  /* .overlay {
-      height: 273px;
-      width: 200px;
-      background-color: black;
-      opacity: 0.8;
-      top: 8px;
-      border-radius: 20px;
-      position: absolute;
-    } */
-
-  @media screen and (max-width:1325px) {
-
-    .contentCard,
-    img {
-      width: 150px;
-      height: 210px;
-    }
-
-    .contentTitle {
-      font-size: 13px;
-      font-family: 'Nanum Gothic', sans-serif;
-    }
-  }
-
-  @media screen and (max-width:1210px) {
-
-    .contentCard,
-    img {
-      width: 140px;
-      height: 200px;
-    }
-
-    .contentTitle {
-      font-size: 12px;
-    }
-
-    .contentCard {
-      margin-bottom: 80px;
-    }
-
-    .nowContent,
-    .futureContent {
-      justify-content: center;
-      padding-bottom: 0;
-    }
-  }
-
-  @media screen and (max-width:900px) {
-
-    .nowContent,
-    .futureContent {
-      justify-content: center;
-      padding-top: 30px;
-      padding-bottom: 0;
-    }
-
-    .futureWrap {
-      padding-top: 0px;
-    }
+  .futureContent .contentCard {
+    width: 200px;
   }
 
   .circular {
@@ -257,6 +214,13 @@
   .circle .left .progress {
     z-index: 1;
     animation: left .5s linear both;
+  }
+
+  @media screen and (max-width:930px) {
+    .mainContent {
+      width: 100vw;
+    }
+
   }
 
   @keyframes left {
