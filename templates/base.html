@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 {% include 'head.html' %}
@@ -7,6 +8,10 @@
     {% block content %}
     {% endblock %}
     {% include 'footer.html' %}
+    <!-- JS Link -->
+    <script src="{% static 'common/js/overflow.js'%}""></script>
+    <script src=" {% static 'common/js/header.js' %}"></script>
+    <script src="{% static 'concertapp/js/sidebar.js'%}"></script>
 </body>
 
 </html>

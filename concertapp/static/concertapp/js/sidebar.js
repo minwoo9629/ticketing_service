@@ -1,35 +1,34 @@
+// let contentNum = 0;
+// let totalNum = 0;
+// let sideContent, pointBtnAll, pointInnerAll;
+// let pauseBtn, icon;
+// let timerId;
+// let flag = true;
 let contentNum = 0;
-let totalNum = 0;
-let sideContent, pointBtnAll, pointInnerAll;
-let pauseBtn, icon;
 let timerId;
 let flag = true;
-let prevOnload = window.onload;
-window.onload = function () {
-    prevOnload();
-    sideContent = document.querySelectorAll('.sideContent');
-    pointBtnAll = document.querySelectorAll('.pointWrap li');
-    pointInnerAll = document.querySelectorAll('.pointWrap li .inner');
-    descriptionAll = document.querySelectorAll('.sideDesc');
-    pauseBtn = document.querySelector('.pauseBtn');
-    icon = document.querySelector('.pauseBtn i')
-    totalNum = sideContent.length;
+const sideContent = document.querySelectorAll('.sideContent');
+const pointBtnAll = document.querySelectorAll('.pointWrap li');
+const pointInnerAll = document.querySelectorAll('.pointWrap li .inner');
+const descriptionAll = document.querySelectorAll('.sideDesc');
+const pauseBtn = document.querySelector('.pauseBtn');
+const icon = document.querySelector('.pauseBtn i')
+const totalNum = sideContent.length;
         
-    for (let i = 0; i < pointBtnAll.length; i++) {
-        (function (idx) {
-            pointBtnAll[idx].onclick = () => {
-                contentNum = idx;
-                contentChangeFunc();
-            }
-        })(i);
-    }
-    contentChangeFunc();
-
+for (let i = 0; i < pointBtnAll.length; i++) {
+    (function (idx) {
+        pointBtnAll[idx].onclick = () => {
+            contentNum = idx;
+            contentChangeFunc();
+        }
+    })(i);
+}
+contentChangeFunc();
+if (pauseBtn){
     pauseBtn.addEventListener('click', () => {
         contentPauseFunc()
     })
 }
-
 function nextContent() {
     if (contentNum < totalNum - 1) {
         contentNum++;
