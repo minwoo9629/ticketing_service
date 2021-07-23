@@ -43,133 +43,58 @@
             <li class="contentImg"><img src="{{ come.poster.url }}"></li>
             <li class="contentTitle">{{come.title}}</li>
           </ul>
+          <div class="circularBack">
+            <div class="circular">
+              <div class="inner"></div>
+              <div class="remainDateTime">D-3</div>
+              <div class="circle">
+                <div class="bar left">
+                  <div class="progress"></div>
+                </div>
+                <div class="bar right">
+                  <div class="progress"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         {% endfor %}
       </div>
     </div>
   </div>
 </div>
-<!-- <div class="circular">
-  <div class="inner"></div>
-  <div class="remainDateTime">D-3</div>
-  <div class="circle">
-    <div class="bar left">
-      <div class="progress"></div>
-    </div>
-    <div class="bar right">
-      <div class="progress"></div>
-    </div>
-  </div>
-</div> -->
 <style>
-  .main {
-    display: flex;
+  .futureContent .contentCard:hover>.circularBack {
+    background-color: rgb(0, 0, 0, 0.5);
+    visibility: visible;
+    animation-play-state: running;
   }
 
-  .mainContent {
-    float: right;
-    width: 75vw;
-    height: 100vh;
+  .futureContent .contentCard:hover>.circularBack .circle .left .progress {
+    animation: left .5s linear both;
   }
 
-  .slider {
-    width: 100%;
-    overflow: hidden;
+  .futureContent .contentCard:hover>.circularBack .circle .right .progress {
+    animation: right .5s ease-out both;
+    animation-delay: .5s;
   }
 
-  .slideBox {
-    display: flex;
-    position: relative;
-    z-index: 1;
-    width: calc(250px * 10);
-    animation: slide 20s linear infinite;
-  }
-
-  .slideBox:hover {
-    animation-play-state: paused;
-  }
-
-  @keyframes slide {
-    0% {
-      transform: translateX(0)
-    }
-
-    100% {
-      transform: translate(calc(-250px * 5));
-    }
-
-  }
-
-  .nowWrap {
-    padding: 40px 15px 0px 15px;
-  }
-
-  .futureWrap {
-    padding: 0px 15px;
-  }
-
-  .nowTitle,
-  .futureTitle {
-    height: 45px;
-    text-align: center;
-    font-size: 40px;
-    font-family: 'Raleway', sans-serif;
-  }
-
-  .nowContent,
-  .futureContent {
-    padding: 25px 10px 0 10px;
-    display: flex;
-    position: relative;
-    transition: all .3s ease;
-  }
-
-  .contentCard {
-    position: relative;
-    padding: 10px 20px;
-    width: 250px;
-    height: 255px;
-    text-align: center;
-    transition: all .3s ease;
-  }
-
-  .nowContent .contentCard:hover {
-    transform: translateY(-30px);
-  }
-
-  .contentImg {
-    margin-bottom: 10px;
-  }
-
-  .contentImg a img {
-    box-shadow: 0px 0px 13px grey;
+  .circularBack {
+    visibility: hidden;
+    left: 45px;
     width: 150px;
     height: 200px;
     border-radius: 1rem;
-  }
-
-  .contentImg img {
-    box-shadow: 0px 0px 13px grey;
-    width: 150px;
-    height: 200px;
-    border-radius: 1rem;
-  }
-
-  .futureContent {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .futureContent .contentCard {
-    width: 200px;
+    position: absolute;
+    top: 10px;
   }
 
   .circular {
     height: 100px;
     width: 100px;
-    position: relative;
-    top: -55px;
-    left: 43%;
+    position: absolute;
+    top: 26%;
+    left: 17%;
   }
 
   .remainDateTime {
@@ -182,13 +107,13 @@
 
   .circular .inner {
     position: absolute;
-    z-index: 9;
+    z-index: 5;
     top: 50%;
     left: 50%;
     height: 80px;
     width: 80px;
     margin: -40px 0 0 -40px;
-    background-color: black;
+    background-color: rgb(78, 76, 76);
     border-radius: 100%;
 
   }
@@ -208,19 +133,12 @@
     width: 100%;
     -webkit-border-radius: 100%;
     clip: rect(0px, 50px, 100px, 0px);
-    background: #4156d0;
+    background: cornflowerblue;
   }
 
   .circle .left .progress {
     z-index: 1;
-    animation: left .5s linear both;
-  }
-
-  @media screen and (max-width:930px) {
-    .mainContent {
-      width: 100vw;
-    }
-
+    /* animation: left .5s linear both; */
   }
 
   @keyframes left {
@@ -230,19 +148,19 @@
   }
 
   .circle .right {
-    z-index: 3;
     transform: rotate(180deg);
 
   }
 
   .circle .right .progress {
-    animation: right .5s ease-out both;
-    animation-delay: .5s;
+    z-index: 1;
+    /* animation: right .5s ease-out both; */
+    /* animation-delay: .5s; */
   }
 
   @keyframes right {
     100% {
-      transform: rotate(150deg);
+      transform: rotate(180deg);
     }
   }
 </style>
