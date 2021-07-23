@@ -5,7 +5,7 @@ from django.utils import timezone
 
 def performance_list_view(request):
     current_date = timezone.now().strftime('%Y-%m-%d')
-    now_playing =  Performance.objects.filter(ticket_open_dt__lte=current_date).order_by('ticket_open_dt')[:5]
+    now_playing =  Performance.objects.filter(ticket_open_dt__lte=current_date).order_by('ticket_open_dt')[:6]
     comming_soon = Performance.objects.filter(ticket_open_dt__gte=current_date).order_by('ticket_open_dt')[:5]
     advertisement = Performance.objects.filter(advertisement=True)
     

@@ -1,11 +1,166 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <section>
-        <h1>공연 Detail PAGE</h1>
-        {{ performance.title}}
-    </section>
-    <section><img src="{{ performance.poster.url}}" alt=""></section>
-    <section><img src="{{ performance.poster.url}}" alt=""></section>
-</div>
+<section id="detailSection">
+    <div class="detailTitle">공연 상세 정보</div>
+    <div class="detailContent">
+        <div class="detailImgWrap">
+            <img class="detailImg" src="{{performance.poster.url}}" alt="">
+        </div>
+        <div class="detailDescWrap">
+            <ul>
+                <li>{{performance.category}}</li>
+                <li>{{performance.title}}</li>
+                <li>{{performance.start_day}} ~ {{performance.end_day}}</li>
+            </ul>
+            <div class="covidMessage">
+                <p>코로나19 사회적 거리두기 단계 격상 및 유지 가능성에 따라</p>
+                <p>선제적 대응과 관람객의 안전한 공연 관람을 위해 공연 시간이 변경됩니다.</p>
+                <p>원활한 공연 진행 및 안전을 위한 불가피한 결정에 관객 분들의 너그러운 양해를 부탁드립니다.</p>
+            </div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div class="reserveWrap">
+                <div><a href="#">예매확인 / 취소</a></div>
+                <div><a href="#">예매하기</a></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section id="noticeSection">
+    <ul>
+        <li class="active">알립니다</li>
+        <li>공연소개</li>
+        <li>좌석배치도</li>
+    </ul>
+    {% include 'concertapp/snippets/notice.html' %}
+</section>
+<section id="d3"></section>
+<section></section>
+<style>
+    #detailSection {
+        position: relative;
+        width: 80%;
+        min-width: 930px;
+        max-width: 1400px;
+        height: 100vh;
+        max-height: 1200px;
+        margin: 0 auto;
+        border-bottom: 2px solid;
+    }
+
+    #noticeSection {
+        position: relative;
+        width: 80%;
+        min-width: 930px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .detailTitle {
+        text-align: center;
+        font-weight: 700;
+        font-size: 25px;
+        border-bottom: 3px solid;
+        padding: 40px 0 20px 0;
+    }
+
+    .detailContent {
+        height: 100vh;
+        display: flex;
+        width: 100%;
+    }
+
+    .detailImgWrap {
+        height: 100%;
+        width: 40%;
+    }
+
+    .detailImg {
+        max-width: 600px;
+        max-height: 660px;
+        display: block;
+        margin: 50px 50px 0 0;
+        width: 85%;
+        height: 75%;
+    }
+
+    .detailDescWrap {
+        width: 60%;
+        margin: 50px 0;
+    }
+
+    .detailDescWrap ul:first-child {
+        width: 100%;
+        margin-bottom: 30px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #cacaca;
+    }
+
+    .detailDescWrap ul:first-child li {
+        margin-bottom: 15px;
+    }
+
+    .detailDescWrap ul:first-child li:nth-child(2) {
+        margin-bottom: 40px;
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+    .detailDescWrap ul:first-child li:nth-child(3) {
+        font-size: 14px;
+    }
+
+    .reserveWrap {
+        display: flex;
+        top: 40%;
+        position: relative;
+    }
+
+    .reserveWrap div {
+        text-align: center;
+        width: 33%;
+    }
+
+    .reserveWrap div a {
+        border: 1px rgb(151, 151, 151) solid;
+        padding: 20px 0px;
+        display: block;
+        transition: all .3s ease;
+    }
+
+    .reserveWrap div a:hover {
+        color: whitesmoke;
+        background-color: cornflowerblue;
+        border: 1px cornflowerblue solid;
+        font-weight: 600;
+    }
+
+    .covidMessage {
+        padding: 10px 0;
+    }
+
+    .covidMessage p {
+        margin-bottom: 10px;
+        color: red;
+        letter-spacing: -2px;
+    }
+
+    #noticeSection ul {
+        display: flex;
+        justify-content: space-around;
+        margin: 0 200px;
+    }
+
+    #noticeSection ul li {
+        padding: 10px 20px;
+    }
+
+    #noticeSection ul li.active {
+        border-top: 5px cornflowerblue solid;
+    }
+</style>
 {% endblock %}

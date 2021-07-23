@@ -40,10 +40,11 @@
         {% for come in comming_soon %}
         <div class="contentCard">
           <ul>
-            <li class="contentImg"><img src="{{ come.poster.url }}"></li>
+            <li class="contentImg"><a href="{% url 'concertapp:detail' come.id %}"><img src="{{ come.poster.url }}"></a>
+            </li>
             <li class="contentTitle">{{come.title}}</li>
           </ul>
-          {% include 'snippets/circular.html' %}
+          <!-- {% include 'snippets/circular.html' %} -->
         </div>
         {% endfor %}
       </div>
