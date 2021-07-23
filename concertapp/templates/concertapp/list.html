@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="main">
-  {% include 'snippets/sidebar.html'%}
+  {% include 'snippets/sidebar.html' with advertisement=advertisement %}
   <div class="mainContent">
     <div class="nowWrap">
       <div class="nowTitle">
@@ -43,20 +43,7 @@
             <li class="contentImg"><img src="{{ come.poster.url }}"></li>
             <li class="contentTitle">{{come.title}}</li>
           </ul>
-          <div class="circularBack">
-            <div class="circular">
-              <div class="inner"></div>
-              <div class="remainDateTime">D-3</div>
-              <div class="circle">
-                <div class="bar left">
-                  <div class="progress"></div>
-                </div>
-                <div class="bar right">
-                  <div class="progress"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {% include 'snippets/circular.html' %}
         </div>
         {% endfor %}
       </div>

@@ -16,6 +16,10 @@ class Performance(models.Model):
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES)
     poster = models.ImageField(upload_to=poster_dirs_path, null=True)
     ticket_open_dt = models.DateTimeField(verbose_name='티켓 예매 시작 일시', null=True)
+    advertisement = models.BooleanField(default=False)
+    start_day = models.DateField(verbose_name='전체 공연 일정 시작 일자', null=True)
+    end_day = models.DateField(verbose_name='전체 공연 일정 종료 일자', null=True)
+    
 
     def __str__(self):
         return self.title

@@ -1,50 +1,28 @@
 {% load static %}
+{% if advertisement %}
 <div class="sideBar">
+    {% for ad in advertisement%}
     <section class="sideContent">
         <div class="sidePoster">
-            <a href="#"><img src="{% static 'temp/eunji.jpg' %}" alt=""></a>
+            <a href="{% url 'concertapp:detail' ad.id %}"><img src="{{ ad.poster.url }}" alt=""></a>
         </div>
         <ul class="sideDesc">
-            <li>콘서트</li>
-            <li>정은지 여름아이 콘서트</li>
-            <li>2021.07.01 ~ 2021.07.30<a href="#"><i class="fas fa-ticket-alt"></i>예매하기</a></li>
+            <li>{{ ad.category }}</li>
+            <li>{{ ad.title}}</li>
+            <li>{{ ad.start_day}} ~ {{ ad.end_day }}<a href="#"><i class="fas fa-ticket-alt"></i>예매하기</a></li>
             <li>상명 아트센터 계딩홀</li>
         </ul>
     </section>
-    <section class="sideContent">
-        <div class="sidePoster">
-            <a href="#"><img src="{% static 'temp/lovelz.jpg' %}" alt=""></a>
-        </div>
-        <ul class="sideDesc">
-            <li>콘서트</li>
-            <li>러블리즈 콘서트</li>
-            <li>2021.07.01 ~ 2021.07.30<a href="#"><i class="fas fa-ticket-alt"></i>예매하기</a></li>
-            <li>상명 아트센터 계딩홀</li>
-        </ul>
-    </section>
-    <section class="sideContent">
-        <div class="sidePoster">
-            <a href="#"><img src="{% static 'temp/eyeson.jpg' %}" alt=""></a>
-        </div>
-        <ul class="sideDesc">
-            <li>콘서트</li>
-            <li>아이즈원 온라인 콘서트</li>
-            <li>2021.07.01 ~ 2021.07.30<a href="#"><i class="fas fa-ticket-alt"></i>예매하기</a></li>
-            <li>상명 아트센터 계딩홀</li>
-        </ul>
-    </section>
+    {%endfor%}
     <div class="buttonWrap">
         <button class="pauseBtn"><i class="fas fa-pause"></i></button>
         <ul class="pointWrap">
+            {% for ad in advertisement %}
             <li>
                 <div class="inner"></div>
             </li>
-            <li>
-                <div class="inner"></div>
-            </li>
-            <li>
-                <div class="inner"></div>
-            </li>
+            {% endfor %}
         </ul>
     </div>
 </div>
+{% endif %}

@@ -102,6 +102,5 @@
 @media screen and (max-width:930px) {
     .mainContent {
       width: 100vw;
-      overflow-x: hidden;
     }
 }

@@ -7,7 +7,9 @@ def performance_list_view(request):
     current_date = timezone.now().strftime('%Y-%m-%d')
     now_playing =  Performance.objects.filter(ticket_open_dt__lte=current_date).order_by('ticket_open_dt')[:5]
     comming_soon = Performance.objects.filter(ticket_open_dt__gte=current_date).order_by('ticket_open_dt')[:5]
-    context = {'now_playing':now_playing, 'comming_soon': comming_soon}
+    advertisement = Performance.objects.filter(advertisement=True)
+    
+    context = {'now_playing':now_playing, 'comming_soon': comming_soon, 'advertisement': advertisement}
     return render(request, 'concertapp/list.html', context)
 
 
