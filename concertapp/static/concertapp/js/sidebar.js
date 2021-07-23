@@ -4,7 +4,9 @@ let sideContent, pointBtnAll, pointInnerAll;
 let pauseBtn, icon;
 let timerId;
 let flag = true;
+let prevOnload = window.onload;
 window.onload = function () {
+    prevOnload();
     sideContent = document.querySelectorAll('.sideContent');
     pointBtnAll = document.querySelectorAll('.pointWrap li');
     pointInnerAll = document.querySelectorAll('.pointWrap li .inner');
