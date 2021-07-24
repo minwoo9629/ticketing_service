@@ -17,14 +17,18 @@
                 <p>선제적 대응과 관람객의 안전한 공연 관람을 위해 공연 시간이 변경됩니다.</p>
                 <p>원활한 공연 진행 및 안전을 위한 불가피한 결정에 관객 분들의 너그러운 양해를 부탁드립니다.</p>
             </div>
-            <div>
-                <div></div>
-                <div></div>
-            </div>
+            <ul>
+                <li>티켓 오픈 시간 : {{performance.ticket_open_dt}}</li>
+            </ul>
 
             <div class="reserveWrap">
-                <div><a href="#">예매확인 / 취소</a></div>
-                <div><a href="#">예매하기</a></div>
+                {% if performance.reserve_available %}
+                <div><a class="active" href="#">예매확인 / 취소</a></div>
+                <div><a class="active" href="#">예매하기</a></div>
+                {% else %}
+                <div><a class="active pause" href="#">예매확인 / 취소</a></div>
+                <div><a class="deactive">D - {{performance.d_day.days}}</a></div>
+                {% endif %}
             </div>
 
         </div>
@@ -46,6 +50,7 @@
         width: 80%;
         min-width: 930px;
         max-width: 1400px;
+        min-height: 900px;
         height: 100vh;
         max-height: 1200px;
         margin: 0 auto;
@@ -75,6 +80,8 @@
     }
 
     .detailImgWrap {
+        min-width: 430px;
+        min-height: 590px;
         height: 100%;
         width: 40%;
     }
@@ -82,6 +89,8 @@
     .detailImg {
         max-width: 600px;
         max-height: 660px;
+        min-width: 375px;
+        min-height: 590px;
         display: block;
         margin: 50px 50px 0 0;
         width: 85%;
@@ -90,6 +99,7 @@
 
     .detailDescWrap {
         width: 60%;
+        min-width: 620px;
         margin: 50px 0;
     }
 
@@ -116,8 +126,7 @@
 
     .reserveWrap {
         display: flex;
-        top: 40%;
-        position: relative;
+        margin-top: 30%;
     }
 
     .reserveWrap div {
@@ -132,7 +141,15 @@
         transition: all .3s ease;
     }
 
-    .reserveWrap div a:hover {
+    .reserveWrap div a.deactive {
+        color: whitesmoke;
+        background: gray;
+
+    }
+
+
+
+    .reserveWrap div a.active:hover {
         color: whitesmoke;
         background-color: cornflowerblue;
         border: 1px cornflowerblue solid;
@@ -163,4 +180,12 @@
         border-top: 5px cornflowerblue solid;
     }
 </style>
+<script>
+    const deActiveBtn = document.querySelector('.pause');
+
+    deActiveBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        alert("티켓예매가 오픈되지 않았습니다.")
+    })
+</script>
 {% endblock %}

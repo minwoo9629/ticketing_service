@@ -1,9 +1,12 @@
 from django.db import models
 from django.db.models import constraints
 from django.db.models.base import Model
+from django.utils import timezone
+
 
 def poster_dirs_path(instance, filename):
     return 'poster/{}/{}'.format(instance.category, filename)
+
 
 # 공연 모델
 class Performance(models.Model):
@@ -19,10 +22,17 @@ class Performance(models.Model):
     advertisement = models.BooleanField(default=False)
     start_day = models.DateField(verbose_name='전체 공연 일정 시작 일자', null=True)
     end_day = models.DateField(verbose_name='전체 공연 일정 종료 일자', null=True)
-    
 
     def __str__(self):
         return self.title
+
+    @property
+    def reserve_available(self):
+        return self.ticket_open_dt < timezone.now()
+    @property
+    def d_day(self):
+        if not self.reserve_available:
+            return self.ticket_open_dt.date()-timezone.now().date()
 
 
 # 공연장 모델

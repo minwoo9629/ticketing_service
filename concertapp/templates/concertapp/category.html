@@ -1,0 +1,6 @@
+{% extends 'base.html'%}
+{% block content %}
+{% for concert in performance_category_list %}
+{{concert.title}}
+{% endfor %}
+{% endblock %}

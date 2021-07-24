@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from concertapp.models import Performance
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.utils import timezone
 
 def performance_list_view(request):
@@ -13,8 +13,17 @@ def performance_list_view(request):
     return render(request, 'concertapp/list.html', context)
 
 
-def concert_list_view(request):
-    return render(request, 'concertapp/conert.html')
+class CategoryListView(ListView):
+    model = Performance
+    template_name = 'concertapp/category.html'
+    context_object_name = 'performance_category_list'
+
+    def get_queryset(self, *args, **kwargs):
+        concert_list = Performance.objects.filter(category=self.kwargs.get('category'))
+        return concert_list
+
+# def concert_list_view(request):
+#     return render(request, 'concertapp/conert.html')
 
 
 
