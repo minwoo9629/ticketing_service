@@ -18,9 +18,20 @@
                 <p>원활한 공연 진행 및 안전을 위한 불가피한 결정에 관객 분들의 너그러운 양해를 부탁드립니다.</p>
             </div>
             <ul>
-                <li>티켓 오픈 시간 : {{performance.ticket_open_dt}}</li>
+                <li>티켓 오픈 시간 - {{performance.ticket_open_dt}}</li>
+                &nbsp;
+                {% for sked in performance.schedule.all %}
+                {% if forloop.first %}
+                <li>장소 - {{sked.concert_hall}}</li>
+                &nbsp;
+                {% endif%}
+                {% endfor %}
+                <li>일정</li>
+                &nbsp;
+                {% for sked in performance.schedule.all %}
+                <li>{{ sked.start_dt | date:'Y.m.d H:i'}}</li>
+                {% endfor %}
             </ul>
-
             <div class="reserveWrap">
                 {% if performance.reserve_available %}
                 <div><a class="active" href="#">예매확인 / 취소</a></div>
@@ -126,7 +137,7 @@
 
     .reserveWrap {
         display: flex;
-        margin-top: 30%;
+        margin-top: 20%;
     }
 
     .reserveWrap div {
@@ -182,10 +193,11 @@
 </style>
 <script>
     const deActiveBtn = document.querySelector('.pause');
-
-    deActiveBtn.addEventListener('click', (event) => {
-        event.preventDefault();
-        alert("티켓예매가 오픈되지 않았습니다.")
-    })
+    if (deActiveBtn) {
+        deActiveBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            alert("티켓예매가 오픈되지 않았습니다.")
+        })
+    }
 </script>
 {% endblock %}

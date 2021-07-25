@@ -61,3 +61,7 @@ class Schedule(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['concert_hall', 'start_dt', 'end_dt'], name="place revervation time")
         ]
+        
+    @property
+    def time(self):
+        return self.end_dt-self.start_dt

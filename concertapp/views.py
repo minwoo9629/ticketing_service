@@ -22,16 +22,7 @@ class CategoryListView(ListView):
         concert_list = Performance.objects.filter(category=self.kwargs.get('category'))
         return concert_list
 
-# def concert_list_view(request):
-#     return render(request, 'concertapp/conert.html')
-
-
-
 class PerformanceDetailView(DetailView):
     model = Performance
     template_name = 'concertapp/detail.html'
     context_object_name = 'performance'
-    
-# def performance_detail_view(request, pk):
-#     performance = Performance.objects.get(pk=pk)
-#     return render(request, 'concertapp/detail.html', context)
