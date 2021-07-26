@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'concertapp.apps.ConcertappConfig',
     'reservationapp.apps.ReservationappConfig',
     'api.apps.ApiConfig',
+
+    # DRF
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

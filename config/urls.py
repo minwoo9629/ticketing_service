@@ -10,6 +10,7 @@ urlpatterns = [
     path('performance/', include('concertapp.urls')),
     path('accounts/', include('accountapp.urls')),
     path('accounts/', include('allauth.urls')),
+    path('api/', include('api.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

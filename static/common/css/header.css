@@ -24,11 +24,26 @@ a {
     list-style: none;
     margin-left: 95px;
 }
-
-.navbar_menu li {
-    padding: 0.5rem 0.8rem;
-    margin: 0px 1rem;
+.navbar_menu li{
+    margin: 0 10px;
+}
+.navbar_menu li a{
+    padding: 0.5rem 0.5em;
+    display: block;
+    width: 80px;
+    text-align: center;
+    border-bottom: 3px solid #fafafa;
+    box-sizing: border-box;
     font-family: 'Nanum Gothic', sans-serif;
+    transition: all .3s ease;
+}
+
+.navbar_menu li a.active{
+    border-bottom: 3px solid cornflowerblue;
+}
+
+.navbar_menu li a:hover{
+    border-bottom: 3px solid cornflowerblue;
 }
 
 .navbar_sub {
