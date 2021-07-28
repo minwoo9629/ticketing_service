@@ -20,7 +20,7 @@ class CategoryListView(ListView):
     context_object_name = 'performance_category_list'
 
     def get_queryset(self, *args, **kwargs):
-        concert_list = Performance.objects.filter(category=self.kwargs.get('category'))[:10]
+        concert_list = Performance.objects.filter(category=self.kwargs.get('category'))[:12]
         return concert_list
 
 
