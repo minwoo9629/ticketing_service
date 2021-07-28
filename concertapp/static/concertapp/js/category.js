@@ -5,7 +5,8 @@ const categorySection = document.querySelector('.categorySection');
 let start_idx, end_idx;
 start_idx = 10
 end_idx = 15
-moreBtn.addEventListener('click', () => {
+if(moreBtn){
+    moreBtn.addEventListener('click', () => {
     $.ajax({
         url: `/api/${locationCategory}/`,
         method: "GET",
@@ -40,8 +41,8 @@ moreBtn.addEventListener('click', () => {
     })
     start_idx += 5
     end_idx += 5
-})
-
+    })
+}
 
 const categoryList = document.querySelectorAll('.categoryList');
 for (let i = 0; i < categoryList.length; i++) {

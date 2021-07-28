@@ -61,11 +61,11 @@ a {
     border-radius: 20px;
 }
 
-.navbar_sub form {
+#searchForm {
     width: 90%;
 }
 
-.navbar_sub form input {
+#searchForm input {
     font-size: 16px;
     color: gray;
     background-color: #fafafa;
@@ -75,7 +75,7 @@ a {
     outline: none;
 }
 
-.navbar_sub form button {
+#searchForm button {
     border: none;
     background-color: #fafafa;
     color: gray;
@@ -151,7 +151,7 @@ a {
         width: 200px;
     }
 
-    .navbar_sub form input {
+    #searchForm input {
         width: 150px;
     }
 }

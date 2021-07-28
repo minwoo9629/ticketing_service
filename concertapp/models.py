@@ -29,10 +29,11 @@ class Performance(models.Model):
     @property
     def reserve_available(self):
         return self.ticket_open_dt < timezone.now()
+
     @property
     def d_day(self):
         if not self.reserve_available:
-            return self.ticket_open_dt.date()-timezone.now().date()
+            return self.ticket_open_dt.date() - timezone.now().date()
 
 
 # 공연장 모델
@@ -46,8 +47,8 @@ class ConcertHall(models.Model):
 # 공연장 좌석 모델
 class Seat(models.Model):
     concert_hall = models.ForeignKey(ConcertHall, on_delete=models.CASCADE, related_name="seats")
-    seat_type = models.CharField(max_length=10, verbose_name='좌석 등급')
-    seat_number = models.IntegerField()
+    area = models.CharField(max_length=10, verbose_name='공연장 구역', null=True)
+    number = models.IntegerField(null=True, blank=True)
     reservation = models.BooleanField(default=False)
 
 
@@ -61,7 +62,7 @@ class Schedule(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['concert_hall', 'start_dt', 'end_dt'], name="place revervation time")
         ]
-        
+
     @property
     def time(self):
-        return self.end_dt-self.start_dt
+        return self.end_dt - self.start_dt

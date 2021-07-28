@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from api.serializers import CategorySerializer
 from rest_framework.response import Response
 
+
 class CategoryListView(APIView):
 
     def get(self, request, category, format=None):
@@ -10,8 +11,3 @@ class CategoryListView(APIView):
         category_list = Performance.objects.filter(category=category)[start_idx:end_idx]
         serializer = CategorySerializer(category_list, many=True)
         return Response(serializer.data)
-
-
-
-
-

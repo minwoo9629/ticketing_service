@@ -11,8 +11,8 @@
     </ul>
 
     <div class="navbar_sub">
-        <form action="">
-            <input type="text">
+        <form class="searchForm" id="searchForm" action="{% url 'search' %}" method="GET">
+            <input type="search" name="q" id="q">
             <button type="submit"><i class="fas fa-search"></i></button>
         </form>
         {% if user.is_authenticated%}
