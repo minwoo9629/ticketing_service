@@ -204,7 +204,6 @@
     const startDay = document.querySelector("#start_day")
     const endDay = document.querySelector("#end_day")
     const now = new Date();
-    const oneMonthAgo = new Date();
     now.setMonth(now.getMonth() + 1)
     function toStringByFormatting(date, delimiter = '-') {
         const year = date.getFullYear();
@@ -214,8 +213,8 @@
         return [year, month, day].join(delimiter)
     }
     if (startDay.value === '') {
-        startDay.value = toStringByFormatting(oneMonthAgo);
-        endDay.value = toStringByFormatting(now);
+        startDay.value = toStringByFormatting(now);
+        endDay.value = `${now.getFullYear()}-12-31`;
     }
 </script>
 {% endblock %}

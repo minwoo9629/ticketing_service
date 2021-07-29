@@ -20,6 +20,6 @@ document.addEventListener('click', () => {
 
 // menu btn border-bottom 활성화
 if (idName) {
-    const menu = document.querySelector(`#${idName}`)
-    menu.classList.add('active');
+    const category = document.querySelector(`#${idName}`)
+    category.classList.add('active');
 }

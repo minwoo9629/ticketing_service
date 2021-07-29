@@ -7,7 +7,7 @@ let start_idx, end_idx;
 start_idx = 12
 end_idx = 18
 
-if (categoryCard.length !== 12) {
+if (moreWrap && categoryCard.length !== 12) {
     moreWrap.style.display = 'none';
 }
 if (moreBtn) {
