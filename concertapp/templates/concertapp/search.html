@@ -37,7 +37,11 @@
                     </div>
                 </div>
                 <div class="col placeDatetime">
-                    <span>충남대학교 정심화 홀</span>
+                    {% for sked in performance.schedule.all %}
+                    {% if forloop.first %}
+                    <span>{{sked.concert_hall}}</span>
+                    {% endif %}
+                    {% endfor %}
                     <span>{{performance.start_day | date:'Y.m.d'}} ~ {{performance.end_day | date:'Y.m.d'}}</span>
                 </div>
             </li>

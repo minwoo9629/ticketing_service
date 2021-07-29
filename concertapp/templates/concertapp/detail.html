@@ -58,12 +58,8 @@
 <style>
     #detailSection {
         position: relative;
-        width: 80%;
-        min-width: 930px;
+        width: 80vw;
         max-width: 1400px;
-        min-height: 900px;
-        height: 100vh;
-        max-height: 1200px;
         margin: 0 auto;
         border-bottom: 2px solid;
     }
@@ -71,7 +67,6 @@
     #noticeSection {
         position: relative;
         width: 80%;
-        min-width: 930px;
         max-width: 1400px;
         margin: 0 auto;
     }
@@ -85,32 +80,23 @@
     }
 
     .detailContent {
-        height: 100vh;
-        display: flex;
+        display: grid;
+        grid-template-columns: 40% 60%;
         width: 100%;
     }
 
     .detailImgWrap {
-        min-width: 430px;
-        min-height: 590px;
         height: 100%;
-        width: 40%;
     }
 
     .detailImg {
-        max-width: 600px;
-        max-height: 660px;
-        min-width: 375px;
-        min-height: 590px;
         display: block;
         margin: 50px 50px 0 0;
         width: 85%;
-        height: 75%;
+        height: 80%;
     }
 
     .detailDescWrap {
-        width: 60%;
-        min-width: 620px;
         margin: 50px 0;
     }
 
@@ -189,6 +175,21 @@
 
     #noticeSection ul li.active {
         border-top: 5px cornflowerblue solid;
+    }
+
+    @media screen and (max-width:930px) {
+        .detailContent {
+            display: grid;
+            grid-template-columns: 100%;
+        }
+
+        .detailImg {
+            margin: 50px auto;
+        }
+
+        #noticeSection ul {
+            margin: 0;
+        }
     }
 </style>
 <script>
