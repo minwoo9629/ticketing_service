@@ -4,8 +4,20 @@
     <div class="keywordWrap">
         <span class="keyword">"{{keyword}}"</span>에 대한 검색 결과 입니다.
     </div>
-
+    <div class="detailSearchWrap">
+        <form class="detailSearchForm" id="detailSearchForm" action="{% url 'search'%}" method="GET">
+            <input type="text" name="q" value="{{keyword}}">
+            <div class=" dateFormWrap">
+                <input type="date" id="start_day" name="start_day" value="{{start_day}}"> ~ <input type="date"
+                    id="end_day" name="end_day" value="{{end_day}}">
+            </div>
+            <input type="submit" value="검색">
+        </form>
+    </div>
     <div class="searchResultWrap">
+        <div class="searchLength">
+            공연 [{{search_list|length}}건]
+        </div>
         <ul class="searchResult">
             {% if search_list %}
             {% for performance in search_list %}
@@ -39,9 +51,11 @@
         padding: 20px;
         width: 80vw;
         margin: 0 auto;
+        max-width: 1250px;
     }
 
-    .keywordWrap {
+    .keywordWrap,
+    .detailSearchWrap {
         padding: 25px 70px 30px;
         margin-bottom: 50px;
         box-sizing: border-box;
@@ -49,6 +63,57 @@
         background: #f4f6f9;
         text-align: center;
         font-size: 24px;
+    }
+
+    .detailSearchWrap {
+        box-sizing: border-box;
+        padding: 25px 70px 25px;
+        justify-content: center;
+        display: flex;
+    }
+
+    .detailSearchForm input {
+        padding: 5px 15px;
+        margin: 10px;
+    }
+
+    .detailSearchForm {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .detailSearchForm input[type="text"],
+    .detailSearchForm input[type="date"] {
+        box-shadow: 0 0 0 1px #cccbcb;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        width: 130px;
+        padding: 5px 15px;
+        margin: 10px;
+    }
+
+    .detailSearchForm input[type="text"] {
+        height: 20px;
+    }
+
+    .detailSearchForm input[type="submit"] {
+        cursor: pointer;
+        background-color: white;
+        border: 1px solid cornflowerblue;
+        border-radius: 10px;
+        color: cornflowerblue;
+    }
+
+    .detailSearchForm .dateFormWrap {
+        align-items: baseline;
+        display: flex;
+        font-weight: 100;
+    }
+
+    .searchLength {
+        padding: 10px;
+        border-bottom: 1px solid #cacaca;
     }
 
     .searchResultContent {
@@ -135,4 +200,22 @@
         }
     }
 </style>
+<script>
+    const startDay = document.querySelector("#start_day")
+    const endDay = document.querySelector("#end_day")
+    const now = new Date();
+    const oneMonthAgo = new Date();
+    now.setMonth(now.getMonth() + 1)
+    function toStringByFormatting(date, delimiter = '-') {
+        const year = date.getFullYear();
+        const month = String(date.getMonth()).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        return [year, month, day].join(delimiter)
+    }
+    if (startDay.value === '') {
+        startDay.value = toStringByFormatting(oneMonthAgo);
+        endDay.value = toStringByFormatting(now);
+    }
+</script>
 {% endblock %}
