@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load minutes_timedelta %}
 {% block content %}
 <section id="detailSection">
     <div class="detailTitle">공연 상세 정보</div>
@@ -24,13 +25,20 @@
                 {% if forloop.first %}
                 <li>장소 - {{sked.concert_hall}}</li>
                 &nbsp;
+                <li>공연시간 : {{sked.time | minutes}}분</li>
                 {% endif%}
                 {% endfor %}
-                <li>일정</li>
                 &nbsp;
-                {% for sked in performance.schedule.all %}
-                <li>{{ sked.start_dt | date:'Y.m.d H:i'}}</li>
-                {% endfor %}
+                <li>일정</li>
+                <div>
+                    {% for sked in performance.schedule.all %}
+                    <li>{{ sked.start_dt | date:'Y.m.d H:i'}}</li>
+
+                    &nbsp;
+                    {% endfor %}
+                </div>
+
+
             </ul>
             <div class="reserveWrap">
                 {% if performance.reserve_available %}
@@ -120,6 +128,17 @@
     .detailDescWrap ul:first-child li:nth-child(3) {
         font-size: 14px;
     }
+
+    .detailDescWrap ul:nth-of-type(2) {
+        position: relative;
+    }
+
+    .detailDescWrap ul:nth-of-type(2) div {
+        position: absolute;
+        left: 50px;
+        top: 95px;
+    }
+
 
     .reserveWrap {
         display: flex;
