@@ -33,7 +33,6 @@
                 <div>
                     {% for sked in performance.schedule.all %}
                     <li>{{ sked.start_dt | date:'Y.m.d H:i'}}</li>
-
                     &nbsp;
                     {% endfor %}
                 </div>
@@ -53,16 +52,15 @@
         </div>
     </div>
 </section>
-<section id="noticeSection">
+<section id="infoSection">
     <ul>
-        <li class="active">알립니다</li>
-        <li>공연소개</li>
-        <li>좌석배치도</li>
+        <li><a class="active" href="#">공연정보</a></li>
+        <li><a href="#">알립니다</a></li>
+        <li><a href="">좌석배치도</a></li>
     </ul>
-    {% include 'concertapp/snippets/notice.html' %}
+    <!-- {% include 'concertapp/snippets/notice.html' %} -->
+    {% include 'concertapp/snippets/information.html' with performance=performance%}
 </section>
-<section id="d3"></section>
-<section></section>
 <style>
     #detailSection {
         position: relative;
@@ -72,7 +70,7 @@
         border-bottom: 2px solid;
     }
 
-    #noticeSection {
+    #infoSection {
         position: relative;
         width: 80%;
         max-width: 1400px;
@@ -182,17 +180,20 @@
         letter-spacing: -2px;
     }
 
-    #noticeSection ul {
+    #infoSection ul {
         display: flex;
         justify-content: space-around;
         margin: 0 200px;
     }
 
-    #noticeSection ul li {
+    #infoSection ul li a {
+        display: block;
+        border-top: 5px #fafafa solid;
+        box-sizing: border-box;
         padding: 10px 20px;
     }
 
-    #noticeSection ul li.active {
+    #infoSection ul li a.active {
         border-top: 5px cornflowerblue solid;
     }
 
@@ -206,7 +207,7 @@
             margin: 50px auto;
         }
 
-        #noticeSection ul {
+        #infoSection ul {
             margin: 0;
         }
     }

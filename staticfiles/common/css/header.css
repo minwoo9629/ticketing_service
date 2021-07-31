@@ -1,0 +1,215 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1.2rem;
+    box-shadow: 0px 5px 10px 2px rgb(0 0 0 / 10%);
+    position: sticky;
+    width: 100vw;
+}
+
+.navbar_logo {
+    font-size: 1.5rem;
+    font-family: 'Righteous', cursive;
+    font-weight: bold;
+}
+
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    margin-left: 95px;
+}
+.navbar_menu li{
+    margin: 0 10px;
+}
+.navbar_menu li a{
+    padding: 0.5rem 0.5em;
+    display: block;
+    width: 80px;
+    text-align: center;
+    border-bottom: 3px solid #fafafa;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+    transition: all .3s ease;
+}
+
+.navbar_menu li a.active{
+    border-bottom: 3px solid cornflowerblue;
+}
+
+.navbar_menu li a:hover{
+    border-bottom: 3px solid cornflowerblue;
+}
+
+.navbar_sub {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 100px;
+    border: none;
+    color: cornflowerblue;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 3px grey;
+    width: 240px;
+    height: 30px;
+    border-radius: 20px;
+}
+
+#searchForm {
+    width: 90%;
+}
+
+#searchForm input {
+    font-size: 16px;
+    color: gray;
+    background-color: #fafafa;
+    width: 188px;
+    height: 20px;
+    border: none;
+    outline: none;
+}
+
+#searchForm button {
+    border: none;
+    background-color: #fafafa;
+    color: gray;
+    font-size: 18px;
+    position: absolute;
+}
+
+.loginBtn,
+.userDropDownBtn {
+    position: absolute;
+    background-color: #fafafa;
+    border: none;
+    font-size: 23px;
+    color: cornflowerblue;
+}
+
+.loginBtn {
+    right: -40px;
+}
+
+.userDropDownBtn {
+    right: -46px;
+    cursor: pointer;
+    top: 2px;
+}
+
+.userDropDownMenu {
+    background-color: white;
+    top: 65px;
+    right: 10px;
+    visibility: hidden;
+    position: absolute;
+    list-style: none;
+    box-shadow: 0px 0px 10px grey;
+    border-radius: 8px;
+}
+
+.userDropDownMenu li {
+    text-align: center;
+    padding: 8px 10px;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.userDropDownMenu li a:hover {
+    font-weight: bold;
+}
+
+.userDropDownMenu li a {
+    background-color: white;
+    padding: 0.4rem 0.8rem;
+    color: cornflowerblue;
+    font-size: 14px;
+}
+
+.toggleBtn {
+    position: absolute;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: cornflowerblue;
+    display: none;
+}
+
+.userDropDownMenu.active {
+    visibility: visible;
+}
+
+@media screen and (max-width: 1200px) {
+    .navbar_menu {
+        margin-right: 30px;
+    }
+
+    .navbar_sub {
+        width: 200px;
+    }
+
+    #searchForm input {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 1060px) {
+    .navbar_menu {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 930px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px
+    }
+
+    .navbar_menu {
+        display: none;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    .navbar_menu li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar_userBtn {
+        position: absolute;
+        justify-content: center;
+    }
+
+    .navbar_menu.active {
+        display: flex;
+    }
+
+    .navbar_sub {
+        position: absolute;
+        right: 130px;
+        top: 15px;
+    }
+
+    .loginBtn {
+        right: -35px;
+    }
+
+    .userDropDownBtn {
+        position: absolute;
+        right: -41px;
+        font-size: 23px;
+        color: cornflowerblue;
+    }
+
+    .toggleBtn {
+        display: block;
+        right: -70px;
+    }
+}

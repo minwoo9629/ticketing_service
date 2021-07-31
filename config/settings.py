@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'concertapp.apps.ConcertappConfig',
     'reservationapp.apps.ReservationappConfig',
     'api.apps.ApiConfig',
+    'ckeditor',
+    'ckeditor_uploader',
 
     # DRF
     'rest_framework',
@@ -128,7 +130,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -156,3 +161,8 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home';
 ACCOUNT_LOGOUT_ON_GET = True
+
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "description/"
+CKEDITOR_IMAGE_BACKEND = "pillow"

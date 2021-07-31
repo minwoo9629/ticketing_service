@@ -1,0 +1,130 @@
+.sideBar {
+    position: relative;
+    width: 45vmin;
+    min-width: 350px;
+    height: 100vh;
+    background: #fafafa;
+    box-shadow: 0px 5px 15px grey;
+    z-index: 2;
+    transition: all .5s ease;
+}
+
+.sideBar .sideContent {
+    width: 100%;
+    height: 80vmin;
+    transition: all .3s ease;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.sideBar .sideContent.active {
+    visibility: visible;
+    opacity: 1;
+
+}
+
+.buttonWrap {
+    width: 100%;
+    top: 85%;
+    text-align: center;
+    position: relative;
+}
+
+.sidePoster {
+    position: relative;
+    width: 100%;
+    height: 80%;
+}
+
+.sidePoster img {
+    width: 100%;
+    height: 100%;
+}
+
+.sideDesc {
+    top: 3vmin;
+    position: relative;
+    padding: 0 1.5rem;
+}
+
+.sideDesc li {
+    margin-bottom: 1.2rem;
+}
+
+.sideDesc li:first-child,
+.sideDesc li:nth-child(3),
+.sideDesc li:nth-child(4) {
+    font-size: 12px;
+}
+
+.sideDesc li:nth-child(2) {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.sideDesc a {
+    position: absolute;
+    top: 70px;
+    font-size: 14px;
+    right: 3vmin;
+    font-weight: bold;
+    color: cornflowerblue;
+}
+
+.sideDesc a i {
+    margin-right: 5px;
+}
+
+.pauseBtn {
+    position: relative;
+    cursor: pointer;
+    border: none;
+    background-color: #fafafa;
+    font-size: 12px;
+    top: -1px;
+    right: 7px;
+}
+
+.pointWrap {
+    display: inline-block;
+}
+
+.buttonWrap .pointWrap li {
+    position: relative;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    -webkit-transition: background .3s ease-out;
+    transition: background .3s ease-out;
+}
+
+.pointWrap li .inner {
+    width: 8px;
+    height: 8px;
+    background-color: #fafafa;
+    border-radius: 100%;
+    transform: translate(2px, 2px);
+}
+
+.pointWrap li.active,
+.pointWrap li .inner.active {
+    background-color: black;
+}
+
+@media screen and (max-width:930px) {
+    .sideBar {
+        display: none;
+    }
+}
+
+@media screen and (max-height:700px){
+    .buttonWrap{
+        visibility: hidden;   
+    }
+}

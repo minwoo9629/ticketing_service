@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import constraints
 from django.db.models.base import Model
 from django.utils import timezone
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 def poster_dirs_path(instance, filename):
@@ -35,6 +36,9 @@ class Performance(models.Model):
         if not self.reserve_available:
             return self.ticket_open_dt.date() - timezone.now().date()
 
+class Description(models.Model):
+    performance = models.OneToOneField(Performance, on_delete=models.CASCADE, related_name='description')
+    description = RichTextUploadingField(null=True, blank=True)
 
 # 공연장 모델
 class ConcertHall(models.Model):
@@ -47,7 +51,9 @@ class ConcertHall(models.Model):
 # 공연장 좌석 모델
 class Seat(models.Model):
     concert_hall = models.ForeignKey(ConcertHall, on_delete=models.CASCADE, related_name="seats")
+    floor = models.CharField(max_length=10, verbose_name="층 수", default='스탠딩')
     area = models.CharField(max_length=10, verbose_name='공연장 구역', null=True)
+    row = models.IntegerField(verbose_name="오 와 열 중 열을 뜻함",null=True, blank=True)
     number = models.IntegerField(null=True, blank=True)
     reservation = models.BooleanField(default=False)
 

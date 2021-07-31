@@ -85,3 +85,5 @@ media/
 __pycache__/
 
 study.txt
+
+staticfiles/

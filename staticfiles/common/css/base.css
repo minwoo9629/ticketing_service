@@ -1,0 +1,22 @@
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+html.overflow, body.overflow{
+    overflow: hidden;
+}
+@media screen and (min-width:930px) {
+    html.overflow, body.overflow{
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+}
+    
+@media screen and (max-width:930px) {
+    html.overflow, body.overflow{
+        overflow-x: hidden;
+    }
+    
+}
