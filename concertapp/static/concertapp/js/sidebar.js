@@ -1,9 +1,3 @@
-// let contentNum = 0;
-// let totalNum = 0;
-// let sideContent, pointBtnAll, pointInnerAll;
-// let pauseBtn, icon;
-// let timerId;
-// let flag = true;
 let contentNum = 0;
 let timerId;
 let flag = true;
