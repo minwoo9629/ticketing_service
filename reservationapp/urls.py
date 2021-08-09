@@ -1,7 +1,7 @@
 from django.urls import path
 from reservationapp import views
 
-app_name = 'concertapp'
+app_name = 'reservationapp'
 urlpatterns = [
-    # path('reserve', view.hello, name="heelo")
+    path('reserve/<int:pk>', views.reserve, name="reserve")
 ]

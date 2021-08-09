@@ -42,7 +42,7 @@
             <div class="reserveWrap">
                 {% if performance.reserve_available %}
                 <div><a class="active" href="#">예매확인 / 취소</a></div>
-                <div><a class="active" href="#">예매하기</a></div>
+                <div><a class="active" href="{% url 'reservationapp:reserve' performance.id %}">예매하기</a></div>
                 {% else %}
                 <div><a class="active pause" href="#">예매확인 / 취소</a></div>
                 <div><a class="deactive">D - {{performance.d_day.days}}</a></div>

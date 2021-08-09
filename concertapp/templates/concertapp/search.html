@@ -49,6 +49,35 @@
             {% endif %}
         </ul>
     </div>
+    <div class="paginationWrap">
+        {% if page_obj.has_previous %}
+        <a href="?page={{page_obj.previous_page_number}}" class="able">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        {% else %}
+        <a href="#" class="disable">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        {% endif %}
+        <span class="pageNumber">
+            {% for page_num in page_range %}
+            {% if page_obj.number == page_num %}
+            <a href="#" class="active">{{page_num}}</a>
+            {% else %}
+            <a href="?page={{page_num}}" class="able">{{page_num}}</a>
+            {%endif%}
+            {%endfor%}
+        </span>
+        {% if page_obj.has_next %}
+        <a href="?page={{page_obj.next_page_number}}" class="able">
+            <i class="fas fa-arrow-right"></i>
+        </a>
+        {% else %}
+        <a href="#" class="disable">
+            <i class="fas fa-arrow-right"></i>
+        </a>
+        {%endif%}
+    </div>
 </div>
 <style>
     .searchWrap {
@@ -139,6 +168,11 @@
         width: 185px;
     }
 
+    .searchResultContent .col.poster img {
+        width: 185px;
+        height: 250px;
+    }
+
     .searchResultContent .col.searchResultDesc {
         padding: 0 60px 0 30px;
     }
@@ -177,6 +211,44 @@
 
     .searchResultContent .col.placeDatetime span {
         display: block;
+    }
+
+    .paginationWrap {
+        text-align: center;
+        padding: 40px 20px 30px 20px;
+    }
+
+    .pageNumber {
+        display: inline-block;
+        margin: 0 9px;
+    }
+
+    .paginationWrap a {
+        transition: all .3s;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #b6bdc7;
+        background: #fff;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    .paginationWrap a.able:hover {
+        border: 1px solid cornflowerblue;
+        background-color: cornflowerblue;
+        color: #fff;
+    }
+
+    .paginationWrap a.active {
+        border: 1px solid cornflowerblue;
+        background-color: cornflowerblue;
+        color: #fff;
+        cursor: auto;
+    }
+
+    .paginationWrap a.disable {
+        cursor: auto;
     }
 
     @media screen and (max-width: 930px) {

@@ -35,6 +35,8 @@ class SearchListView(ListView):
     model = Performance
     template_name = 'concertapp/search.html'
     context_object_name = 'search_list'
+    paginate_by = 10
+    block_size = 5
     
     def get_queryset(self, *args, **kwargs):
         q = self.request.GET.get('q', '')
@@ -53,6 +55,9 @@ class SearchListView(ListView):
         end_day = self.request.GET.get('end_day', '')
 
         context = super(SearchListView, self).get_context_data()
+        start_idx = (context['page_obj'].number -1 ) // self.block_size * self.block_size
+        end_idx = min(start_idx + self.block_size, len(context['paginator'].page_range))
+        context['page_range'] = context['paginator'].page_range[start_idx:end_idx]
         context['keyword'] = q
         context['start_day'] = start_day
         context['end_day'] = end_day
