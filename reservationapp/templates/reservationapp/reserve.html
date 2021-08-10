@@ -1,6 +1,184 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for p in performance%}
-{{p}}
-{% endfor %}
+<div class="reserveWrap">
+    <form action="" class="reserveForm" method="POST">
+        {% csrf_token%}
+        {% include 'concertapp/snippets/jamsil.html' with seats=seats%}
+        <div class="choiceWrap">
+            <ul>
+                <li><label for="reserveDate">날짜 선택</label>
+                    <select name="date" id="reserveDate">
+                        {% for sked in schedule %}
+                        <option value="{{sked.start_dt|date:'Y-m-d H:i'}}">{{sked.start_dt|date:'Y.m.d H:i'}}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+                <li>
+                    <p class="comment">**구역과 날짜를 선택하시면 잔여 티켓 수를 확인할 수 있습니다.</p>
+                    <p>잔여 티켓 : <span class="remainCount">대기 중</span></p>
+                </li>
+                <li>
+                    <label for="reserveConut">예매 갯수</label>
+                    <input type="number" name="count" id="reserveCount" min="0">
+                </li>
+                <li>
+                    <input type="submit" value="결제" id="reserveSubmit">
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+<style>
+    .reserveWrap {
+        position: relative;
+        margin: auto;
+        width: 80vw;
+        top: 10%;
+        border-radius: 18px;
+        box-shadow: 0 0 0 2px #e7e6e6;
+        padding: 20px;
+        max-width: 1230px;
+    }
+
+    .reserveForm {
+        display: flex;
+        height: 100%;
+    }
+
+    .seatWrap {
+        width: 70%;
+        height: 100%;
+    }
+
+    .choiceWrap {
+        border-left: 1px solid;
+        width: 30%;
+        padding: 20px 10px 20px 30px;
+    }
+
+    .choiceWrap ul li {
+        margin: 30px 0;
+    }
+
+    .choiceWrap ul li label {
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    #reserveDate {
+        font-size: 16px;
+        border-radius: 6px;
+        padding: 8px 10px;
+    }
+
+    #reserveCount {
+        width: 40px;
+        text-align: center;
+    }
+
+    #reserveSubmit {
+        transition: all .3s;
+        cursor: pointer;
+        outline: none;
+        padding: 8px 20px;
+        color: cornflowerblue;
+        border: 1px solid cornflowerblue;
+        background: #fff;
+        border-radius: 16px;
+    }
+
+    #reserveSubmit:hover {
+        color: #fff;
+        background-color: cornflowerblue;
+
+    }
+
+    .comment {
+        letter-spacing: -1px;
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: cornflowerblue;
+    }
+
+    @media screen and (max-width:930px) {
+        .reserveForm {
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .seatWrap,
+        .choiceWrap {
+            width: 100%;
+        }
+
+        .choiceWrap {
+            border: none;
+        }
+    }
+</style>
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    const date = document.querySelector('#reserveDate');
+    const area = document.querySelectorAll('.area input');
+    const performanceNumber = location.pathname.split('/')[3];
+    let remainCount = document.querySelector('.remainCount');
+    let reserveCount = document.querySelector('#reserveCount');
+    let areaValue;
+    for (let i = 0; i < area.length; i++) {
+        (function (idx) {
+            area[idx].onclick = () => {
+                areaValue = area[idx].value
+                getTicketRemainCount();
+            }
+        })(i);
+    }
+
+    date.addEventListener('change', () => {
+        getTicketRemainCount();
+    })
+
+    function getTicketRemainCount() {
+        $.ajax({
+            url: '/api/reservation/remain/',
+            method: "POST",
+            mode: 'same-origin',
+            data: { 'areaValue': areaValue, 'date': date.value, 'performanceNumber': performanceNumber },
+            headers: { 'X-CSRFToken': csrftoken },
+            datatype: "json",
+        }).done(response => {
+            remainCount.innerText = response.remainCount;
+            reserveCount.max = response.remainCount;
+
+        }).fail(error => {
+            console.log(error);
+        })
+    }
+</script>
 {% endblock %}
