@@ -6,6 +6,9 @@
         {% include 'concertapp/snippets/jamsil.html' with seats=seats%}
         <div class="choiceWrap">
             <ul>
+                <li>
+                    <p class="comment">**구역과 날짜를 선택하시면 잔여 티켓 수를 확인할 수 있습니다.</p>
+                </li>
                 <li><label for="reserveDate">날짜 선택</label>
                     <select name="date" id="reserveDate">
                         {% for sked in schedule %}
@@ -14,12 +17,12 @@
                     </select>
                 </li>
                 <li>
-                    <p class="comment">**구역과 날짜를 선택하시면 잔여 티켓 수를 확인할 수 있습니다.</p>
-                    <p>잔여 티켓 : <span class="remainCount">대기 중</span></p>
+                    <label for="reserveConut">예매 개수</label>
+                    <input type="number" name="count" id="reserveCount" min="0" value="0">
                 </li>
                 <li>
-                    <label for="reserveConut">예매 갯수</label>
-                    <input type="number" name="count" id="reserveCount" min="0">
+                    <label for="reserveArea">구역 선택 : </label>
+                    <input type="text" name="area" id="reserveArea" readonly value="구역을 선택해주세요.">
                 </li>
                 <li>
                     <input type="submit" value="결제" id="reserveSubmit">
@@ -28,16 +31,16 @@
         </div>
     </form>
 </div>
+<div class="placeCount"></div>
 <style>
     .reserveWrap {
         position: relative;
         margin: auto;
-        width: 80vw;
+        width: 1230px;
         top: 10%;
         border-radius: 18px;
         box-shadow: 0 0 0 2px #e7e6e6;
         padding: 20px;
-        max-width: 1230px;
     }
 
     .reserveForm {
@@ -57,7 +60,7 @@
     }
 
     .choiceWrap ul li {
-        margin: 30px 0;
+        margin: 0 0 30px 0;
     }
 
     .choiceWrap ul li label {
@@ -100,20 +103,11 @@
         color: cornflowerblue;
     }
 
-    @media screen and (max-width:930px) {
-        .reserveForm {
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .seatWrap,
-        .choiceWrap {
-            width: 100%;
-        }
-
-        .choiceWrap {
-            border: none;
-        }
+    #reserveArea {
+        vertical-align: middle;
+        outline: none;
+        border: none;
+        background: #fafafa;
     }
 </style>
 <script>
@@ -148,23 +142,40 @@
     const date = document.querySelector('#reserveDate');
     const area = document.querySelectorAll('.area input');
     const performanceNumber = location.pathname.split('/')[3];
-    let remainCount = document.querySelector('.remainCount');
     let reserveCount = document.querySelector('#reserveCount');
-    let areaValue;
-    for (let i = 0; i < area.length; i++) {
-        (function (idx) {
-            area[idx].onclick = () => {
-                areaValue = area[idx].value
-                getTicketRemainCount();
-            }
-        })(i);
-    }
+    let placeCount = document.querySelector('.placeCount');
+    let reserveArea = document.querySelector('#reserveArea');
+    let areaValue, remainCount;
 
     date.addEventListener('change', () => {
         getTicketRemainCount();
     })
 
-    function getTicketRemainCount() {
+    function showPlaceInfo(value) {
+        areaValue = value
+        getTicketRemainCount(event.target);
+    }
+    function hidePlaceInfo(areaValue) {
+        placeCount.style.visibility = "hidden"
+    }
+
+    function movePlace() {
+        const mouseX = event.pageX + 20;
+        const mouseY = event.pageY;
+        placeCount.style.top = `${mouseY}px`;
+        placeCount.style.left = `${mouseX}px`;
+    }
+
+    function selectPlace(value) {
+        event.preventDefault();
+        if (remainCount !== 0) {
+            reserveArea.value = value
+        } else {
+            alert("구매가능한 좌석이 없습니다.")
+        }
+    }
+
+    function getTicketRemainCount(targetPlace) {
         $.ajax({
             url: '/api/reservation/remain/',
             method: "POST",
@@ -173,8 +184,13 @@
             headers: { 'X-CSRFToken': csrftoken },
             datatype: "json",
         }).done(response => {
-            remainCount.innerText = response.remainCount;
-            reserveCount.max = response.remainCount;
+            remainCount = response.remainCount;
+            reserveCount.max = remainCount;
+            placeCount.style.visibility = "visible"
+            placeCount.innerText = `잔여석 : ${remainCount}`
+            if (remainCount !== 0) {
+                targetPlace.style.cursor = "pointer"
+            }
 
         }).fail(error => {
             console.log(error);

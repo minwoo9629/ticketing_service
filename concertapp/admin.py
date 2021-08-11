@@ -3,7 +3,7 @@ from concertapp.models import Performance, ConcertHall, Seat, Schedule, Descript
 
 
 class SeatAdmin(admin.ModelAdmin):
-    list_display = ('concert_hall', 'floor', 'area', 'row', 'number', 'reservation')
+    list_display = ('concert_hall', 'floor', 'area', 'row', 'number')
 
 
 class ScheduleAdmin(admin.ModelAdmin):

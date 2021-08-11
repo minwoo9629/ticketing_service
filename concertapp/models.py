@@ -3,6 +3,8 @@ from django.db.models import constraints
 from django.db.models.base import Model
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 def poster_dirs_path(instance, filename):
@@ -55,7 +57,17 @@ class Seat(models.Model):
     area = models.CharField(max_length=10, verbose_name='공연장 구역', null=True)
     row = models.IntegerField(verbose_name="오 와 열 중 열을 뜻함",null=True, blank=True)
     number = models.IntegerField(null=True, blank=True)
-    reservation = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['floor','area','row','number']
+
+    def __str__(self):
+        base = f"{self.concert_hall} {self.floor} {self.area}구역"
+        if self.row:
+            return base+f" {self.row}열{self.number}번"
+        else:
+            return base+f" {self.number}번"
+
 
 
 class Schedule(models.Model):
@@ -72,3 +84,6 @@ class Schedule(models.Model):
     @property
     def time(self):
         return self.end_dt - self.start_dt
+
+    def __str__(self):
+        return f"{self.performance} {self.start_dt} {self.concert_hall}"

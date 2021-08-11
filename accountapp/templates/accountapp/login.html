@@ -3,13 +3,13 @@
 {% block content %}
 <style>
     .login-form {
-        padding: 80px;
+        padding: 80px 20px;
         text-align: center;
     }
 
     .login-form form {
         margin: 0px auto;
-        width: 500px;
+        max-width: 500px;
         padding: 25px;
     }
 
@@ -18,23 +18,25 @@
     }
 
     form ul li {
+        margin: 0 auto;
         margin-bottom: 20px;
+        width: 350px;
         position: relative;
     }
 
     form ul li input {
-        width: 70%;
+        width: 350px;
         height: 40px;
         outline: none;
         border: none;
-        font-size: 18px;
         border-bottom: 1px solid;
         background-color: #fafafa;
+        position: relative;
     }
 
     form ul li label {
         top: 15px;
-        left: 73px;
+        left: 0;
         position: absolute;
         transition: all .3s;
     }

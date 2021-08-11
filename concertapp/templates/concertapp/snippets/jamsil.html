@@ -1,26 +1,58 @@
+{% load static %}
 <div class="seatWrap">
-    <div class="standing">
-        <div class="jamsilA area">A<input type="radio" name="area" value="A"></div>
-        <div class="jamsilB area">B<input type="radio" name="area" value="B"></div>
-        <div class="jamsilC area">C<input type="radio" name="area" value="C"></div>
-        <div class="jamsilD area">D<input type="radio" name="area" value="D"></div>
-    </div>
-    <div class="floor2">
-        <div class="jamsil12 area">12<input type="radio" name="area" value="12"></div>
-        <div class="jamsil13 area">13<input type="radio" name="area" value="13"></div>
-        <div class="jamsil14 area">14<input type="radio" name="area" value="14"></div>
-        <div class="jamsil15 area">15<input type="radio" name="area" value="15"></div>
-    </div>
-    <div class="floor3">
-        <div class="jamsil30 area">30<input type="radio" name="area" value="30"></div>
-        <div class="jamsil31 area">31<input type="radio" name="area" value="31"></div>
-        <div class="jamsil32 area">32<input type="radio" name="area" value="32"></div>
-        <div class="jamsil33 area">33<input type="radio" name="area" value="33"></div>
-    </div>
+    <img src="{% static 'place1.PNG' %}" alt="" usemap="#placeTicket">
+    <map name="placeTicket" id="placeTicket">
+
+        <area shape="poly" coords="245,212, 316,213, 316,229, 289,260, 231,261, 231,223, 245,212" href="#" alt=""
+            onmouseover="showPlaceInfo('B')" onmouseout="hidePlaceInfo('B')" onmousemove="movePlace()"
+            onclick="selectPlace('B')">
+        <area shape="poly" coords="368,212, 440,209, 449,223, 452,260, 395,259, 367,228, 368,212" href="#" alt=""
+            onmouseover="showPlaceInfo('A')" onmouseout="hidePlaceInfo('A')" onmousemove="movePlace()"
+            onclick="selectPlace('A')">
+        <area shape="poly" coords="232,293, 292,295, 292,316, 330,317, 329,341, 265,341, 267,354, 236,351, 228,341"
+            href="#" alt="" onmouseover="showPlaceInfo('D')" onmouseout="hidePlaceInfo('D')" onmousemove="movePlace()"
+            onclick="selectPlace('D')">
+        <area shape="poly" coords="349,318, 387,313, 387,289, 460,289, 455,341, 440,355, 412,359, 407,343, 352,342"
+            href="#" alt="" onmouseover="showPlaceInfo('C')" onmouseout="hidePlaceInfo('C')" onmousemove="movePlace()"
+            onclick="selectPlace('C')">
+        <area shape="poly" coords="225,360, 272,389, 257,425, 199,391" href="#" alt="" onmouseover="showPlaceInfo(15)"
+            onmouseout="hidePlaceInfo(15)" onmousemove="movePlace()" onclick="selectPlace('15')">
+        <area shape="poly" coords="281,391, 336,401, 335,439, 268,429" href="#" alt="" onmouseover="showPlaceInfo(14)"
+            onmouseout="hidePlaceInfo(14)" onmousemove="movePlace()" onclick="selectPlace('14')">
+        <area shape="poly" coords="347,402, 400,392, 413,425, 347,440" href="#" alt="" onmouseover="showPlaceInfo(13)"
+            onmouseout="hidePlaceInfo(13)" onmousemove="movePlace()" onclick="selectPlace('13')">
+        <area shape="poly" coords="407,387, 457,358, 482,389, 422,424" href="#" alt="" onmouseover="showPlaceInfo(12)"
+            onmouseout="hidePlaceInfo(12)" onmousemove="movePlace()" onclick="selectPlace('12')">
+
+        <area shape="poly" coords="192,397, 255,433, 241,473, 165,428" href="#" alt="" onmouseover="showPlaceInfo(33)"
+            onmouseout="hidePlaceInfo(33)" onmousemove="movePlace()" onclick="selectPlace('33')">
+        <area shape="poly" coords="264,438, 332,453, 332,490, 249,476" href="#" alt="" onmouseover="showPlaceInfo(32)"
+            onmouseout="hidePlaceInfo(32)" onmousemove="movePlace()" onclick="selectPlace('32')">
+        <area shape="poly" coords="345,453, 415,438, 429,473, 346,491" href="#" alt="" onmouseover="showPlaceInfo(31)"
+            onmouseout="hidePlaceInfo(31)" onmousemove="movePlace()" onclick="selectPlace('31')">
+        <area shape="poly" coords="425,433, 488,397, 515,427, 440,474" href="#" alt="" onmouseover="showPlaceInfo(30)"
+            onmouseout="hidePlaceInfo(30)" onmousemove="movePlace()" onclick="selectPlace('30')">
+    </map>
 </div>
 <style>
+    .placeCount {
+        background: cornflowerblue;
+        top: 398px;
+        left: 385px;
+        visibility: hidden;
+        position: absolute;
+        padding: 8px;
+        color: #fff;
+        border-radius: 10px;
+    }
+
     .seatWrap {
-        position: relative
+        position: relative;
+        text-align: center;
+    }
+
+    area {
+        cursor: auto;
     }
 
     .seatWrap .standing {
@@ -29,86 +61,6 @@
         width: 50%;
         min-height: 220px;
         max-width: 420px;
-    }
-
-    .standing .jamsilA {
-        right: 0;
-        top: 25px;
-    }
-
-    .standing .jamsilB {
-        top: 25px;
-    }
-
-    .standing .jamsilC {
-        right: 0;
-        bottom: 25px;
-    }
-
-    .standing .jamsilD {
-        bottom: 25px;
-
-    }
-
-    .seatWrap .standing div {
-        width: 40%;
-        max-width: 168px;
-        height: 30%;
-        border-radius: 10px;
-        background: rgb(238 137 181);
-        border: 1px solid rgb(238 137 181);
-        position: absolute;
-        line-height: 66px;
-        text-align: center;
-
-    }
-
-    .seatWrap .floor2 div,
-    .seatWrap .floor3 div {
-        max-height: 70px;
-        max-width: 150px;
-        width: 18%;
-        height: 150px;
-        text-align: center;
-        line-height: 70px;
-    }
-
-    .floor2,
-    .floor3 {
-        display: flex;
-        justify-content: space-around;
-        flex-direction: row-reverse;
-        max-width: 850px;
-        min-height: 150px;
-        margin: 0 auto;
-    }
-
-    .floor2 div {
-        border-radius: 10px;
-        background: rgb(255 170 121);
-        border: 1px solid rgb(255 170 121);
-        margin: 30px 0;
-    }
-
-    .floor3 div {
-        border-radius: 10px;
-        background: rgb(158 125 244);
-        border: 1px solid rgb(158 125 244);
-        margin: 30px 0;
-    }
-
-    .jamsil15,
-    .jamsil33 {
-        position: relative;
-        top: -40px;
-        transform: rotate(20deg);
-    }
-
-    .jamsil12,
-    .jamsil30 {
-        position: relative;
-        top: -40px;
-        transform: rotate(-20deg);
     }
 
     .area:hover {

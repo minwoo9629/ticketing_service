@@ -5,11 +5,11 @@ from concertapp.models import Performance, Schedule, Seat
 
 @login_required
 def reserve(request, pk):
-    # performance = Performance.objects.get(id=pk)
-    schedule = Schedule.objects.filter(performance=pk)
+    performance = Performance.objects.get(id=pk)
+    schedule = Schedule.objects.filter(performance=performance)
     seats = Seat.objects.filter(concert_hall=schedule[0].concert_hall)
     context = {
-        # 'performance':performance,
+        'performance':performance,
         'schedule':schedule,
         'seats':seats,
     }
