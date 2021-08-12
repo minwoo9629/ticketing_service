@@ -22,6 +22,9 @@ environ.Env.read_env(
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
+# ADMIN_KEY for KAKAO PAY
+ADMIN_KEY = env('ADMIN_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load minutes_timedelta %}
+{% load static %}
 {% block content %}
 <section id="detailSection">
     <div class="detailTitle">공연 상세 정보</div>
@@ -18,7 +19,7 @@
                 <p>선제적 대응과 관람객의 안전한 공연 관람을 위해 공연 시간이 변경됩니다.</p>
                 <p>원활한 공연 진행 및 안전을 위한 불가피한 결정에 관객 분들의 너그러운 양해를 부탁드립니다.</p>
             </div>
-            <ul>
+            <ul class="detailInfo">
                 <li>티켓 오픈 시간 - {{performance.ticket_open_dt}}</li>
                 &nbsp;
                 {% for sked in performance.schedule.all %}
@@ -36,8 +37,10 @@
                     &nbsp;
                     {% endfor %}
                 </div>
-
-
+                <br>
+                <li>
+                    <span>결제수단 </span><img id="payImg" src="{% static 'kakao/payment_icon_yellow_small.png'%}" alt="">
+                </li>
             </ul>
             <div class="reserveWrap">
                 {% if performance.reserve_available %}
@@ -127,7 +130,7 @@
         font-size: 14px;
     }
 
-    .detailDescWrap ul:nth-of-type(2) {
+    .detailDescWrap :nth-of-type(2) {
         position: relative;
     }
 
@@ -195,6 +198,12 @@
 
     #infoSection ul li a.active {
         border-top: 5px cornflowerblue solid;
+    }
+
+    #payImg {
+        width: 70px;
+        height: 25px;
+        vertical-align: middle;
     }
 
     @media screen and (max-width:930px) {

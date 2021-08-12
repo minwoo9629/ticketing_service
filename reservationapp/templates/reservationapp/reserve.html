@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <div class="reserveWrap">
-    <form action="" class="reserveForm" method="POST">
+    <form action="{% url 'reservationapp:reserve' performance.id %}" class="reserveForm" method="POST">
         {% csrf_token%}
         {% include 'concertapp/snippets/jamsil.html' with seats=seats%}
         <div class="choiceWrap">
-            <ul>
+            <ul class="choiceList">
                 <li>
                     <p class="comment">**구역과 날짜를 선택하시면 잔여 티켓 수를 확인할 수 있습니다.</p>
                 </li>
@@ -21,10 +22,14 @@
                     <input type="number" name="count" id="reserveCount" min="0" value="0">
                 </li>
                 <li>
-                    <label for="reserveArea">구역 선택 : </label>
-                    <input type="text" name="area" id="reserveArea" readonly value="구역을 선택해주세요.">
+                    <label for="reserveArea">구역 선택 </label>
+                    <input type="text" name="area" id="reserveArea" readonly placeholder="구역을 선택해주세요.">
                 </li>
                 <li>
+                    <label for="totalAmount">결제 가격 </label>
+                    <input type="text" name="totalAmount" id="totalAmount" readonly placeholder="">
+                </li>
+                <li class="pay">
                     <input type="submit" value="결제" id="reserveSubmit">
                 </li>
             </ul>
@@ -59,7 +64,7 @@
         padding: 20px 10px 20px 30px;
     }
 
-    .choiceWrap ul li {
+    .choiceWrap .choiceList li {
         margin: 0 0 30px 0;
     }
 
@@ -79,21 +84,16 @@
         text-align: center;
     }
 
-    #reserveSubmit {
+    .choiceWrap .choiceList .pay #reserveSubmit {
+        vertical-align: middle;
         transition: all .3s;
         cursor: pointer;
         outline: none;
-        padding: 8px 20px;
-        color: cornflowerblue;
-        border: 1px solid cornflowerblue;
-        background: #fff;
-        border-radius: 16px;
-    }
-
-    #reserveSubmit:hover {
+        padding: 8px 30px;
         color: #fff;
-        background-color: cornflowerblue;
-
+        border: 1px solid transparent;
+        background: cornflowerblue;
+        border-radius: 6px;
     }
 
     .comment {
@@ -103,11 +103,13 @@
         color: cornflowerblue;
     }
 
-    #reserveArea {
+    #reserveArea,
+    #totalAmount {
         vertical-align: middle;
         outline: none;
         border: none;
         background: #fafafa;
+        font-size: 16px;
     }
 </style>
 <script>
