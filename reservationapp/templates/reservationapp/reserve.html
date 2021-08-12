@@ -4,7 +4,7 @@
 <div class="reserveWrap">
     <form action="{% url 'reservationapp:reserve' performance.id %}" class="reserveForm" method="POST">
         {% csrf_token%}
-        {% include 'concertapp/snippets/jamsil.html' with seats=seats%}
+        {% include 'concertapp/snippets/jamsil.html'%}
         <div class="choiceWrap">
             <ul class="choiceList">
                 <li>
@@ -23,11 +23,11 @@
                 </li>
                 <li>
                     <label for="reserveArea">구역 선택 </label>
-                    <input type="text" name="area" id="reserveArea" readonly placeholder="구역을 선택해주세요.">
+                    <input type="text" name="area" id="reserveArea" readonly placeholder="구역을 선택해주세요." required>
                 </li>
                 <li>
                     <label for="totalAmount">결제 가격 </label>
-                    <input type="text" name="totalAmount" id="totalAmount" readonly placeholder="">
+                    <input type="number" name="totalAmount" id="totalAmount" readonly value="100">
                 </li>
                 <li class="pay">
                     <input type="submit" value="결제" id="reserveSubmit">
@@ -103,6 +103,7 @@
         color: cornflowerblue;
     }
 
+    #concertHall,
     #reserveArea,
     #totalAmount {
         vertical-align: middle;

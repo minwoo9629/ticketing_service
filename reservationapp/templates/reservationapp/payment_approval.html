@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="paymentAppdWrap">
+    <div class="paymentInfoWrap">
+        <ul class="paymentInfo">
+            <li id="orderInfo">결제 정보</li>
+            <li>주문번호 1001</li>
+            <li>결제금액 12000원</li>
+            <li>결제승인시각 2021-08-12 08:00:00</li>
+        </ul>
+        <div>
+            <a href="">티켓 확인하기</a>
+        </div>
+    </div>
+</div>
+<style>
+    .paymentAppdWrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: calc(100vh - 83px);
+    }
+
+    .paymentInfoWrap {
+        width: 500px;
+        height: 600px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        background: #e6e6e666;
+    }
+
+    .paymentInfo {
+        margin: 30px 20px;
+    }
+
+    .paymentInfo #orderInfo {
+        text-align: center;
+        font-size: 24px;
+    }
+</style>
+{% endblock %}
