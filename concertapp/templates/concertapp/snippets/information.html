@@ -6,3 +6,10 @@
         line-height: 20px;
     }
 </style>
+<script>
+    const infoImg = document.querySelectorAll('.informationWrap p img');
+    console.dir(infoImg);
+    for (let i = 0; i < infoImg.length; i++) {
+        infoImg[i].parentElement.style.textAlign = "center";
+    }
+</script>

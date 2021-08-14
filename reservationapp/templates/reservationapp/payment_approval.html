@@ -4,12 +4,13 @@
     <div class="paymentInfoWrap">
         <ul class="paymentInfo">
             <li id="orderInfo">결제 정보</li>
-            <li>주문번호 1001</li>
-            <li>결제금액 12000원</li>
-            <li>결제승인시각 2021-08-12 08:00:00</li>
+            <li class="orderInfoDesc">주문번호 <span>{{res.partner_order_id}}</span></li>
+            <li class="orderInfoDesc">주문상품 <span>{{res.item_name}}</span></li>
+            <li class="orderInfoDesc">결제금액 <span>{{amount}}원</span></li>
+            <li class="orderInfoDesc">결제시각 <span>{{res.approved_at}}</span></li>
         </ul>
-        <div>
-            <a href="">티켓 확인하기</a>
+        <div class="confirmTicketWrap">
+            <a href="{%url 'reservationapp:ticket'%}" class="confirmTicket">티켓 확인하기</a>
         </div>
     </div>
 </div>
@@ -32,11 +33,32 @@
 
     .paymentInfo {
         margin: 30px 20px;
+        display: grid;
+        height: 75%;
     }
 
     .paymentInfo #orderInfo {
         text-align: center;
         font-size: 24px;
+    }
+
+    .orderInfoDesc {
+        padding: 0px 20px;
+    }
+
+    .orderInfoDesc span {
+        float: right;
+    }
+
+    .confirmTicketWrap {
+        text-align: center;
+    }
+
+    .confirmTicket {
+        background: cornflowerblue;
+        padding: 8px 20px;
+        color: #fff;
+        border: 1px solid transparent;
     }
 </style>
 {% endblock %}

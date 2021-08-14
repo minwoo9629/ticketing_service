@@ -1,5 +1,5 @@
 from django.contrib import admin
-from concertapp.models import Performance, ConcertHall, Seat, Schedule, Description
+from concertapp.models import Performance, ConcertHall, Seat, Schedule, Description, PerformanceSeat
 
 
 class SeatAdmin(admin.ModelAdmin):
@@ -12,8 +12,12 @@ class ScheduleAdmin(admin.ModelAdmin):
 class DescriptionAdmin(admin.ModelAdmin):
     list_display = ('performance','description')
 
+class PerformanceSeatAdmin(admin.ModelAdmin):
+    list_display = ('schedule','seat','reserved')
+
 admin.site.register(Performance)
 admin.site.register(ConcertHall)
 admin.site.register(Seat, SeatAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
 admin.site.register(Description, DescriptionAdmin)
+admin.site.register(PerformanceSeat,PerformanceSeatAdmin)

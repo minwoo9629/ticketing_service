@@ -1,5 +1,4 @@
-from concertapp.models import Performance
-from reservationapp.models import Reservation
+from concertapp.models import Performance, PerformanceSeat, Schedule
 from rest_framework.views import APIView
 from api.serializers import CategorySerializer
 from rest_framework.response import Response
@@ -19,8 +18,7 @@ class RemainTicketCountView(APIView):
         date = request.POST.get('date')
         pk = request.POST.get('performanceNumber')
         performance = Performance.objects.get(pk=pk)
-        reserved_seat_count = len(Reservation.objects.filter(schedule__performance=performance,schedule__start_dt=date,seat__area=area, user=None))
-        remain_seat_count = reserved_seat_count
-
+        schedule = Schedule.objects.get(performance=performance,start_dt=date)
+        remain_seat_count = len(PerformanceSeat.objects.filter(schedule=schedule, seat__area=area, reserved=False))
         context = {'remainCount': remain_seat_count}
         return Response(context)

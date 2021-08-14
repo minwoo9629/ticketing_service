@@ -30,16 +30,17 @@
                 {% endif%}
                 {% endfor %}
                 &nbsp;
-                <li>일정</li>
-                <div>
-                    {% for sked in performance.schedule.all %}
-                    <li>{{ sked.start_dt | date:'Y.m.d H:i'}}</li>
-                    &nbsp;
-                    {% endfor %}
-                </div>
-                <br>
                 <li>
-                    <span>결제수단 </span><img id="payImg" src="{% static 'kakao/payment_icon_yellow_small.png'%}" alt="">
+                    일정
+                    <div>
+                        {% for sked in performance.schedule.all %}
+                        <p>{{ sked.start_dt | date:'Y.m.d H:i'}}</p>
+                        &nbsp;
+                        {% endfor %}
+                    </div>
+                </li>
+                <li>
+                    <span>결제수단</span><img id="payImg" src="{% static 'kakao/payment_icon_yellow_small.png'%}" alt="">
                 </li>
             </ul>
             <div class="reserveWrap">
@@ -135,9 +136,9 @@
     }
 
     .detailDescWrap ul:nth-of-type(2) div {
-        position: absolute;
+        position: relative;
         left: 50px;
-        top: 95px;
+        top: -17px;
     }
 
 

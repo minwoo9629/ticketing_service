@@ -87,3 +87,24 @@ class Schedule(models.Model):
 
     def __str__(self):
         return f"{self.performance} {self.start_dt} {self.concert_hall}"
+
+
+class PerformanceSeat(models.Model):
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name='performance_seat')
+    seat = models.ForeignKey(Seat, on_delete=models.CASCADE, related_name='performance_seat')
+    reserved = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['schedule','seat'], name="not same reservation")
+        ]
+
+    def __str__(self):
+        return f"{self.schedule} {self.seat}"
+
+    @receiver(post_save, sender=Schedule)
+    def create_reservation(sender, instance, created, **kwargs):
+        if created:
+            for seat in instance.concert_hall.seats.all():
+                performance_seat = PerformanceSeat(schedule=instance, seat=seat)
+                performance_seat.save()
