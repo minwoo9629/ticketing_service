@@ -2,29 +2,29 @@
 {% load static %}
 {% block content %}
 <style>
-    .login-form {
+    .loginFormWrap {
         padding: 80px 20px;
         text-align: center;
     }
 
-    .login-form form {
+    .loginFormWrap .loginForm {
         margin: 0px auto;
         max-width: 500px;
         padding: 25px;
     }
 
-    ul {
+    .loginForm ul {
         text-align: center;
     }
 
-    form ul li {
+    .loginForm ul li {
         margin: 0 auto;
         margin-bottom: 20px;
         width: 350px;
         position: relative;
     }
 
-    form ul li input {
+    .loginForm ul li input {
         width: 350px;
         height: 40px;
         outline: none;
@@ -34,7 +34,7 @@
         position: relative;
     }
 
-    form ul li label {
+    .loginForm ul li label {
         top: 15px;
         left: 0;
         position: absolute;
@@ -62,18 +62,39 @@
         text-align: center;
     }
 
-    .btnWrap input,
-    .btnWrap a {
-        margin: 0px 10px;
+    .loginErrorWrap {
+        margin-top: 20px;
+        color: red;
+    }
+
+    .createLink {
+        color: cornflowerblue;
+    }
+
+    .btnWrap .loginBtn,
+    .btnWrap .loginCancle {
+        font-size: 16px;
+        padding: 8px 20px;
+        outline: none;
+        border: 1px solid transparent;
+        color: #fff;
+    }
+
+    .btnWrap .loginBtn {
+        background: cornflowerblue;
+    }
+
+    .btnWrap .loginCancle {
+        background-color: #ff5757;
     }
 </style>
 {% load socialaccount %}
 {% providers_media_js %}
 
 <a></a>
-<div class="login-form">
+<div class="loginFormWrap">
     <div>간편 로그인</div>
-    <form action="{% url 'accountapp:login' %}" method="POST">
+    <form class="loginForm" action="{% url 'accountapp:login' %}" method="POST">
         {% csrf_token %}
         <ul>
             <li>
@@ -88,12 +109,15 @@
             </li>
 
             <div class="btnWrap">
-                <input type="submit" value="로그인" class="">
-                <a class="" href="{% url 'concertapp:list'%}">취소</a>
+                <button class="loginBtn">확인</button>
+                <a class="loginCancle" href="{% url 'concertapp:list'%}">취소</a>
             </div>
-            {% for error in forms.errors %}
-            {{error}}
-            {%endfor%}
+            <div class="loginErrorWrap">
+                {% if form.errors %}
+                {{form.errors.username}}
+                {%endif%}
+            </div>
+            <li><a class="createLink" href="{% url 'accountapp:create' %}">계정이 존재하지 않으신가요?</a></li>
         </ul>
     </form>
     <!-- <a href="{% provider_login_url 'kakao' method='oauth2' %}">카카오 로그인</a> -->

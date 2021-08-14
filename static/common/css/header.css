@@ -83,7 +83,7 @@ a {
     position: absolute;
 }
 
-.loginBtn,
+.navbar_sub .loginBtn,
 .userDropDownBtn {
     position: absolute;
     background-color: #fafafa;
@@ -92,7 +92,7 @@ a {
     color: cornflowerblue;
 }
 
-.loginBtn {
+.navbar_sub .loginBtn {
     right: -40px;
 }
 

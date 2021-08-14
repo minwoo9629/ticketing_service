@@ -2,51 +2,67 @@
 {% block content %}
 <style>
     .createWrap {
-        padding: 80px;
+        display: flex;
+        justify-content: center;
+        padding: 40px 0;
     }
 
-    .createWrap form {
-        margin: 0px auto;
+    .createWrap .accountCreatForm {
+        text-align: center;
         width: 500px;
         padding: 25px;
     }
 
-    form ul li {
+    .createWrap .accountCreatForm ul li {
         margin-bottom: 20px;
     }
 
-    form ul li input {
+    .createWrap .accountCreatForm ul li input {
+        border: none;
         outline: none;
         text-align: center;
-        border-radius: 16px;
-        border: none;
+        border-radius: 7px;
         padding: 5px;
         font-size: 18px;
-        width: 100%;
+        width: 63%;
         height: 30px;
-        box-shadow: 0px 0px 2px;
+        box-shadow: 0 0 5px #ccc;
+    }
+
+    .accountCreatForm .loginLink {
+        color: cornflowerblue;
     }
 
     .error_message {
-        height: 16px;
         text-align: center;
         color: red;
         font-weight: bold;
-
     }
 
     .btnWrap {
-        margin-top: 40px;
+        margin-top: 20px;
         text-align: center;
     }
 
-    .btnWrap input,
-    .btnWrap a {
-        margin: 0px 10px;
+    .btnWrap .accountCreatBtn,
+    .btnWrap .accountCreatCancle {
+        font-size: 16px;
+        padding: 8px 20px;
+        outline: none;
+        border: 1px solid transparent;
+        color: #fff;
+    }
+
+    .btnWrap .accountCreatBtn {
+        background: cornflowerblue;
+    }
+
+    .btnWrap .accountCreatCancle {
+        background-color: #ff5757;
     }
 </style>
 <div class="createWrap">
-    <form action="{% url 'accountapp:create' %}" method="POST">
+    <form class="accountCreatForm" action="{% url 'accountapp:create' %}" method="POST">
         {% csrf_token %}
         <ul>
             <li>
@@ -90,10 +106,17 @@
             <li>
                 <input type="text" name="email" id="email" value="{{ form.email.value|default_if_none:''}}" required>
             </li>
-            <div class="btnWrap">
-                <input class="form-input rounded-pill" type="submit" value="계정생성">
-                <a href="{% url 'concertapp:list'%}">취소</a>
-            </div>
+            <li class="error_message">
+                {% if form.errors.email %}
+                {{ form.errors.email }}
+                {% endif %}
+            </li>
+            <li><a class="loginLink" href="{% url 'accountapp:login'%}">이미 계정이 있으신가요?</a></li>
+        </ul>
+        <div class="btnWrap">
+            <button class="accountCreatBtn">확인</button>
+            <a class="accountCreatCancle" href="{% url 'concertapp:list'%}">취소</a>
+        </div>
     </form>
 </div>
 {% endblock %}
