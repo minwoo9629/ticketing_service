@@ -22,6 +22,7 @@ class Performance(models.Model):
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES)
     poster = models.ImageField(upload_to=poster_dirs_path, null=True)
     ticket_open_dt = models.DateTimeField(verbose_name='티켓 예매 시작 일시', null=True)
+    ticket_close_dt = models.DateTimeField(verbose_name='티켓 예매 종료 일시', null=True)
     advertisement = models.BooleanField(default=False)
     start_day = models.DateField(verbose_name='전체 공연 일정 시작 일자', null=True)
     end_day = models.DateField(verbose_name='전체 공연 일정 종료 일자', null=True)
@@ -31,12 +32,13 @@ class Performance(models.Model):
 
     @property
     def reserve_available(self):
-        return self.ticket_open_dt < timezone.now()
+        return self.ticket_open_dt < timezone.now() < self.ticket_close_dt
 
     @property
     def d_day(self):
         if not self.reserve_available:
-            return self.ticket_open_dt.date() - timezone.now().date()
+            d_day = self.ticket_open_dt.date() - timezone.now().date()
+            return f"D-{d_day.days}" if d_day.days >=0 else "종료된 공연입니다."
 
 class Description(models.Model):
     performance = models.OneToOneField(Performance, on_delete=models.CASCADE, related_name='description')

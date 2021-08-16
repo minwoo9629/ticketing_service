@@ -9,7 +9,7 @@
         <ul class="sideDesc">
             <li>{{ ad.title}}</li>
             <li><span>{{ ad.start_day}} ~ {{ ad.end_day }}</span>
-                <a href="#"><i class="fas fa-ticket-alt"></i>예매하기</a>
+                <a href="{% url 'reservationapp:reserve' ad.pk %}"><i class="fas fa-ticket-alt"></i>예매하기</a>
             </li>
             {% for sked in ad.schedule.all %}
             {% if forloop.first %}
