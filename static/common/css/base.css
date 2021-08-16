@@ -5,12 +5,11 @@ body {
 }
 
 html.overflow, body.overflow{
-    overflow: hidden;
+    overflow-x: hidden;
 }
 @media screen and (min-width:930px) {
     html.overflow, body.overflow{
         overflow-x: hidden;
-        overflow-y: hidden;
     }
 }
     

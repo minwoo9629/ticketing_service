@@ -7,10 +7,15 @@
             <a href="{% url 'concertapp:detail' ad.id %}"><img src="{{ ad.poster.url }}" alt=""></a>
         </div>
         <ul class="sideDesc">
-            <li>{{ ad.category }}</li>
             <li>{{ ad.title}}</li>
-            <li>{{ ad.start_day}} ~ {{ ad.end_day }}<a href="#"><i class="fas fa-ticket-alt"></i>예매하기</a></li>
-            <li>상명 아트센터 계딩홀</li>
+            <li><span>{{ ad.start_day}} ~ {{ ad.end_day }}</span>
+                <a href="#"><i class="fas fa-ticket-alt"></i>예매하기</a>
+            </li>
+            {% for sked in ad.schedule.all %}
+            {% if forloop.first %}
+            <li>{{sked.concert_hall}}</li>
+            {% endif%}
+            {% endfor %}
         </ul>
     </section>
     {%endfor%}

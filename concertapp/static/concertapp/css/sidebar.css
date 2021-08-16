@@ -2,7 +2,8 @@
     position: relative;
     width: 45vmin;
     min-width: 350px;
-    height: 100vh;
+    min-height: 724px;
+    height: calc(100vh - 83px);
     background: #fafafa;
     box-shadow: 0px 5px 15px grey;
     z-index: 2;
@@ -11,7 +12,8 @@
 
 .sideBar .sideContent {
     width: 100%;
-    height: 80vmin;
+    height: 90%;
+    max-height: 1120px;
     transition: all .3s ease;
     position: absolute;
     visibility: hidden;
@@ -26,7 +28,7 @@
 
 .buttonWrap {
     width: 100%;
-    top: 85%;
+    top: 92%;
     text-align: center;
     position: relative;
 }
@@ -52,22 +54,24 @@
     margin-bottom: 1.2rem;
 }
 
-.sideDesc li:first-child,
-.sideDesc li:nth-child(3),
-.sideDesc li:nth-child(4) {
-    font-size: 12px;
-}
-
-.sideDesc li:nth-child(2) {
+.sideDesc li:first-child {
     font-weight: bold;
     font-size: 20px;
 }
 
+.sideDesc li:nth-child(2),
+.sideDesc li:nth-child(3) {
+    font-size: 12px;
+}
+
+.sideDesc li:nth-child(2) {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
 .sideDesc a {
-    position: absolute;
-    top: 70px;
     font-size: 14px;
-    right: 3vmin;
     font-weight: bold;
     color: cornflowerblue;
 }
@@ -120,11 +124,5 @@
 @media screen and (max-width:930px) {
     .sideBar {
         display: none;
-    }
-}
-
-@media screen and (max-height:700px){
-    .buttonWrap{
-        visibility: hidden;   
     }
 }
