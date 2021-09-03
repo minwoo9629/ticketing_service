@@ -95,6 +95,7 @@ class PerformanceSeat(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name='performance_seat')
     seat = models.ForeignKey(Seat, on_delete=models.CASCADE, related_name='performance_seat')
     reserved = models.BooleanField(default=False)
+    price = models.IntegerField(default=100)
 
     class Meta:
         constraints = [
