@@ -6,6 +6,7 @@ from reservationapp.models import Ticket, Reservation
 from django.conf import settings
 from uuid import uuid4
 import requests
+from django.views.generic import DetailView, ListView
 # Create your views here.
 
 @login_required
@@ -121,5 +122,11 @@ def payment_approval(request):
     return render(request, 'reservationapp/payment_approval.html', context)
 
 
-    def ticket(request):
-        pass
+class TiketListView(ListView):
+    model = Reservation
+    template_name = 'reservationapp/ticket_list.html'
+    context_object_name = 'reservations'
+
+    def get_queryset(self):
+        reservations = Reservation.objects.filter(user=self.request.user)
+        return reservations
