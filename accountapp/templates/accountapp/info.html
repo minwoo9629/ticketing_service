@@ -1,0 +1,104 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="userInfoWrap">
+    <ul class="infoList">
+        <li class="infoItem">
+            <a href="{% url 'reservationapp:ticket_list' %}">티켓조회
+                <br>
+                <span>결제한 티켓을 확인하거나 취소합니다.</span>
+            </a>
+            <div class="decorateTriangle"></div>
+        </li>
+        <li class="infoItem">
+            <a href="#">비밀번호 변경
+                <br>
+                <span>계정의 비밀번호를 변경합니다.</span>
+            </a>
+            <div class="decorateTriangle"></div>
+        </li>
+        <li class="infoItem">
+            <a class="deleteAccount" href="#">회원 탈퇴</a>
+            <br>
+            <span>등록한 계정을 삭제합니다.</span>
+            <div class="decorateTriangle"></div>
+        </li>
+    </ul>
+</div>
+<div class="userInfoContent">
+    {% block reserve_content%}
+    {% endblock%}
+</div>
+<script>
+    const deleteAccount = document.querySelector('.infoItem .deleteAccount');
+    const accountDeleteWrap = document.querySelector('.accountDeleteWrap');
+    const decorateTriangle = document.querySelectorAll('.decorateTriangle');
+    deleteAccount.addEventListener('click', (event) => {
+        event.preventDefault()
+        accountDeleteWrap.classList.toggle('active');
+    });
+</script>
+<style>
+    .userInfoWrap {
+        padding: 2rem;
+    }
+
+    .infoList {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .infoItem {
+        border: 1px solid #EAEAEA;
+        padding: 1.5rem 1rem;
+        border-radius: 8px;
+        width: 280px;
+        position: relative;
+        transition: all .5s ease
+    }
+
+    .infoItem a {
+        display: inline-block;
+    }
+
+    .infoItem span {
+        font-weight: 300;
+        font-size: .8rem;
+        display: block;
+        line-height: 1.4;
+        margin-top: .8rem;
+        color: gray;
+    }
+
+    .decorateTriangle {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0px;
+        height: 0px;
+        border-top: 16px solid cornflowerblue;
+        border-right: 16px solid cornflowerblue;
+        border-bottom: 16px solid transparent;
+        border-left: 16px solid transparent;
+        border-radius: 0 8px 0 0;
+    }
+
+    .infoItem:hover {
+        box-shadow: 0px 0px 30px #eee;
+    }
+
+    .infoItem:hover .decorateTriangle {
+        display: block;
+    }
+
+    .decorateTriangle.active {
+        display: block;
+    }
+
+    .userInfoContent {
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+    }
+</style>
+{% endblock%}
