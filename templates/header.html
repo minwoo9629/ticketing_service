@@ -24,7 +24,9 @@
     </div>
 </nav>
 
+{% if user.is_authenticated %}
 <ul class="userDropDownMenu">
-    <li><a href="">{{user.username}}</a></li>
+    <li><a href="{% url 'accountapp:info' user.pk %}">{{user.username}}</a></li>
     <li><a href="{% url 'accountapp:logout' %}">로그아웃</a></li>
 </ul>
+{% endif %}
