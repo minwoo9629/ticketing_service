@@ -1,0 +1,57 @@
+<div class="accountDeleteWrap">
+    <ul class="accountDeleteTitle">
+        <li>회원탈퇴</li>
+        <li><strong>회원탈퇴</strong>를 하시겠습니까?</li>
+    </ul>
+
+    <form class="accountDeleteForm" action="{% url 'accountapp:delete' target_user.id%}" method="post">
+        {% csrf_token %}
+        <button>회원탈퇴</button>
+    </form>
+</div>
+<style>
+    .accountDeleteWrap {
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 0 0 2px #e7e6e5;
+        padding: 2rem;
+        width: 600px;
+        border-radius: 10px;
+        display: none;
+    }
+
+    .accountDeleteWrap.active {
+        display: flex;
+    }
+
+    .accountDeleteTitle {
+        text-align: center;
+    }
+
+    .accountDeleteTitle li:first-child {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .accountDeleteTitle li:last-child {
+        font-size: 20px;
+    }
+
+    .accountDeleteTitle li:last-child strong {
+        color: #ff5757;
+    }
+
+    .accountDeleteTitle li {
+        margin: 0 0 1rem 0;
+    }
+
+    .accountDeleteForm button {
+        cursor: pointer;
+        font-size: 16px;
+        padding: 8px 20px;
+        outline: none;
+        border: 1px solid transparent;
+        color: #fff;
+        background-color: #ff5757;
+    }
+</style>
