@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView
 from django.http import response
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, DeleteView
 
 from accountapp.forms import AccountCreationForm
 
@@ -57,3 +57,15 @@ class AccountLoginView(LoginView):
         response = super().form_invalid(form)
         form.add_error('username', 'ID 또는 PW가 일치하지 않습니다.')
         return response
+
+
+class AccountInfoView(DetailView):
+    model = get_user_model()
+    template_name = "accountapp/info.html"
+    context_object_name = "target_user"
+
+class AccountDeleteView(DeleteView):
+    model = get_user_model()
+    template_name = "accountapp/delete.html"
+    success_url = reverse_lazy("concertapp:list")
+    context_object_name = "target_user"
