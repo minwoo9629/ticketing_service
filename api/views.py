@@ -22,3 +22,13 @@ class RemainTicketCountView(APIView):
         remain_seat_count = len(PerformanceSeat.objects.filter(schedule=schedule, seat__area=area, reserved=False))
         context = {'remainCount': remain_seat_count}
         return Response(context)
+
+class GetTicketPrice(APIView):
+    def get(self, request, format=None):
+        area = request.GET.get('areaValue')
+        date = request.GET.get('date')
+        pk = request.GET.get('performanceNumber')
+        performance = Performance.objects.get(pk=pk)
+        schedule = Schedule.objects.get(performance=performance,start_dt=date)
+        context = PerformanceSeat.objects.filter(schedule=schedule, seat__area=area).values('price').distinct()[0]
+        return Response(context)
