@@ -5,5 +5,5 @@ app_name = 'reservationapp'
 urlpatterns = [
     path('reserve/<int:pk>', views.reserve, name="reserve"),
     path('reserve/payment_approval', views.payment_approval, name="payment_approval"),
-    # path('ticket/', views.tiket, name="tiket"),
+    path('ticket/', views.TiketListView.as_view(), name="ticket_list"),
 ]
