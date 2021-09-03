@@ -8,7 +8,7 @@
         <div class="choiceWrap">
             <ul class="choiceList">
                 <li>
-                    <p class="comment">**구역과 날짜를 선택하시면 잔여 티켓 수를 확인할 수 있습니다.</p>
+                    <p class="comment">**구역에 마우스를 올리면 잔여 티켓 수를 확인할 수 있습니다.</p>
                 </li>
                 <li><label for="reserveDate">날짜 선택</label>
                     <select name="date" id="reserveDate">
@@ -19,15 +19,15 @@
                 </li>
                 <li>
                     <label for="reserveConut">예매 개수</label>
-                    <input type="number" name="count" id="reserveCount" min="0" value="0">
+                    <input type="number" name="count" id="reserveCount" min="0" value="" required>
                 </li>
                 <li>
                     <label for="reserveArea">구역 선택 </label>
-                    <input type="text" name="area" id="reserveArea" readonly placeholder="구역을 선택해주세요." required>
+                    <input type="text" name="area" id="reserveArea" readonly value="" placeholder="구역을 선택해주세요.">
                 </li>
                 <li>
                     <label for="totalAmount">결제 가격 </label>
-                    <input type="number" name="totalAmount" id="totalAmount" readonly value="100">
+                    <input type="number" name="totalAmount" id="totalAmount" readonly value="">
                 </li>
                 <li class="pay">
                     <input type="submit" value="결제" id="reserveSubmit">
@@ -143,15 +143,15 @@
     });
 
     const date = document.querySelector('#reserveDate');
-    const area = document.querySelectorAll('.area input');
+    const totalAmount = document.querySelector('#totalAmount');
     const performanceNumber = location.pathname.split('/')[3];
     let reserveCount = document.querySelector('#reserveCount');
     let placeCount = document.querySelector('.placeCount');
     let reserveArea = document.querySelector('#reserveArea');
-    let areaValue, remainCount;
+    let areaValue, remainCount, areaPrice;
 
-    date.addEventListener('change', () => {
-        getTicketRemainCount();
+    reserveCount.addEventListener('change', () => {
+        getTotalAmount()
     })
 
     function showPlaceInfo(value) {
@@ -173,8 +173,17 @@
         event.preventDefault();
         if (remainCount !== 0) {
             reserveArea.value = value
+            getAreaPrice(value)
         } else {
             alert("구매가능한 좌석이 없습니다.")
+        }
+    }
+
+
+
+    function getTotalAmount() {
+        if (areaPrice && reserveCount.value) {
+            totalAmount.value = areaPrice * reserveCount.value
         }
     }
 
@@ -199,5 +208,21 @@
             console.log(error);
         })
     }
+
+    function getAreaPrice(value) {
+        $.ajax({
+            url: '/api/reservation/price/',
+            method: "GET",
+            data: { 'areaValue': value, 'date': date.value, 'performanceNumber': performanceNumber },
+            datatype: "json",
+        }).done(response => {
+            areaPrice = response.price
+            getTotalAmount()
+
+        }).fail(error => {
+            console.log(error);
+        })
+    }
+
 </script>
 {% endblock %}
