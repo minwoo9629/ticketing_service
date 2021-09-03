@@ -1,0 +1,103 @@
+{% extends 'accountapp/info.html'%}
+{% block reserve_content%}
+<div class="ticketListWrap">
+    {% if reservations %}
+    {% for reservation in reservations %}
+    <ul class="ticketContent">
+        <a href="#" class="reserveCancle active">예매취소</a>
+        <!-- <a href="#" class="reserveCancle">예매취소</a> -->
+        <li>예매번호 - {{reservation.id}}</li>
+        <li>예매일시 - {{reservation.reserve_date}}</li>
+        <li>티켓 <span>닫기</span></li>
+        {% for ticket in reservation.ticket.all %}
+        <li class="ticketItem">
+            <div class="itemImg">
+                <img src="{{ticket.schedule.performance.poster.url}}" alt="">
+            </div>
+            <ul class="ticketDesc">
+                <li>{{ticket.schedule.performance}}</li>
+                <li>티켓번호 - {{ ticket.id }}</li>
+                <li>일시 - {{ticket.schedule.start_dt}}</li>
+                <li>장소 - {{ticket.schedule.concert_hall}}</li>
+                <li>{{ ticket.seat }}</li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    <br>
+    {% endfor %}
+    {% else %}
+    <div class="notExistMsg">
+        <p>예매한 티켓이 없습니다.</p>
+    </div>
+    {% endif %}
+</div>
+<style>
+    .ticketListWrap {
+        min-width: 1250px;
+        width: 85%;
+    }
+
+    .ticketListWrap .notExistMsg {
+        text-align: center;
+    }
+
+    .ticketListWrap .notExistMsg p {
+        font-size: 20px;
+        padding: 30px 20px;
+        background: #f4f6f9;
+    }
+
+    .ticketContent {
+        padding: 30px 20px;
+        background: #f4f6f9;
+        position: relative;
+    }
+
+    .ticketContent .reserveCancle {
+        cursor: none;
+        position: absolute;
+        font-size: 16px;
+        padding: 8px 20px;
+        outline: none;
+        border: 1px solid transparent;
+        background: gray;
+        color: #fff;
+        right: 20px;
+        top: 30px;
+    }
+
+    .ticketContent .reserveCancle.active {
+        cursor: pointer;
+        background-color: #ff5757;
+    }
+
+    .ticketContent li {
+        margin-bottom: 20px;
+    }
+
+    .ticketItem {
+        padding: 0 0 0 20px;
+    }
+
+    .ticketItem .itemImg img {
+        width: 120px;
+    }
+
+    .ticketItem {
+        display: flex;
+        box-shadow: 0px 0px 30px #eee;
+        background: #fff;
+        border-radius: 10px;
+        padding: 20px 30px 20px 30px;
+    }
+
+    .ticketDesc {
+        padding: 0 20px;
+    }
+
+    .ticketDesc li:last-child {
+        margin: 0;
+    }
+</style>
+{% endblock %}
