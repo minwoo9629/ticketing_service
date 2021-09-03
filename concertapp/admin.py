@@ -13,7 +13,7 @@ class DescriptionAdmin(admin.ModelAdmin):
     list_display = ('performance','description')
 
 class PerformanceSeatAdmin(admin.ModelAdmin):
-    list_display = ('schedule','seat','reserved')
+    list_display = ('schedule','seat', 'price', 'reserved')
 
 admin.site.register(Performance)
 admin.site.register(ConcertHall)
