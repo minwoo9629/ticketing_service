@@ -39,6 +39,13 @@ class Performance(models.Model):
         if not self.reserve_available:
             d_day = self.ticket_open_dt.date() - timezone.now().date()
             return f"D-{d_day.days}" if d_day.days >=0 else "종료된 공연입니다."
+    
+    @property
+    def sale_status(self):
+        if self.ticket_close_dt < timezone.now():
+            return "판매종료"
+        if self.ticket_open_dt > timezone.now():
+            return "판매대기"
 
 class Description(models.Model):
     performance = models.OneToOneField(Performance, on_delete=models.CASCADE, related_name='description')
