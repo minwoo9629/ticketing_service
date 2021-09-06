@@ -29,8 +29,11 @@
                 </div>
                 <div class="col searchResultDesc">
                     <div class="tags">
+                        {% if performance.reserve_available%}
                         <span class="tag onSale">판매중</span>
-                        <!-- <span class="tag soldOut">판매종료</span> -->
+                        {% else %}
+                        <span class="tag saleStatus">{{performance.sale_status}}</span>
+                        {% endif %}
                     </div>
                     <div>
                         <a href="{% url 'concertapp:detail' performance.id %}">{{performance.title}}</a>
@@ -195,7 +198,7 @@
         font-size: 14px;
     }
 
-    .tags .tag.soldOut {
+    .tags .tag.saleStatus {
         color: #b3b3b3;
         border: 1px solid #b3b3b3;
         border-radius: 5px;
