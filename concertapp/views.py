@@ -43,7 +43,7 @@ class SearchListView(ListView):
         start_day = self.request.GET.get('start_day', None)
         end_day = self.request.GET.get('end_day', None)
 
-        search_list = Performance.objects.filter(title__contains=q)
+        search_list = Performance.objects.filter(title__icontains=q)
         if start_day is not None:
             search_list = search_list.filter(~Q(start_day__gt=end_day) & ~Q(end_day__lt=start_day))
         
