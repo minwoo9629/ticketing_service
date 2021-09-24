@@ -45,10 +45,16 @@
             </ul>
             <div class="reserveWrap">
                 {% if performance.reserve_available %}
-                <div><a class="active" href="#">예매확인 / 취소</a></div>
+                <div>
+                    <a class="active" href="{% url 'reservationapp:ticket_detail' performance.id %}">예매확인 / 취소</a>
+                </div>
                 <div><a class="active" href="{% url 'reservationapp:reserve' performance.id %}">예매하기</a></div>
                 {% else %}
-                <div><a class="active pause" href="#">예매확인 / 취소</a></div>
+                {% if performance.sale_status == '판매종료'%}
+                <div><a class="active pause soldOut" href="#">예매확인 / 취소</a></div>
+                {% else %}
+                <div><a class="active pause saleWait" href="#">예매확인 / 취소</a></div>
+                {% endif %}
                 <div><a class="deactive">{{performance.d_day}}</a></div>
                 {% endif %}
             </div>
@@ -224,11 +230,17 @@
     }
 </style>
 <script>
-    const deActiveBtn = document.querySelector('.pause');
+    const deActiveBtn = document.querySelector('.reserveWrap div .pause');
     if (deActiveBtn) {
         deActiveBtn.addEventListener('click', (event) => {
             event.preventDefault();
-            alert("티켓예매가 오픈되지 않았습니다.")
+            console.log(deActiveBtn.classList[2])
+            if (deActiveBtn.classList[2] === 'soldOut') {
+                alert("티켓예매가 종료된 공연입니다.")
+            } else {
+                alert("티켓예매가 오픈되지 않았습니다.")
+            }
+
         })
     }
 </script>
