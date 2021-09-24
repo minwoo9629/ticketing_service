@@ -122,9 +122,18 @@ def payment_approval(request):
     return render(request, 'reservationapp/payment_approval.html', context)
 
 
-class TiketListView(ListView):
+class TicketListView(ListView):
     model = Reservation
     template_name = 'reservationapp/ticket_list.html'
+    context_object_name = 'reservations'
+
+    def get_queryset(self):
+        reservations = Reservation.objects.filter(user=self.request.user)
+        return reservations
+
+class TicketDetailView(DetailView):
+    model = Reservation
+    template_name = 'reservationapp/ticket_detail.html'
     context_object_name = 'reservations'
 
     def get_queryset(self):
